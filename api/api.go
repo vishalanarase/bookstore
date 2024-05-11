@@ -5,7 +5,7 @@ import (
 	log "github.com/sirupsen/logrus"
 	"github.com/vishalanarase/bookstore/api/middleware"
 	"github.com/vishalanarase/bookstore/api/routes"
-	"github.com/vishalanarase/bookstore/internal/config"
+	"github.com/vishalanarase/bookstore/internal/configs"
 	"github.com/vishalanarase/bookstore/internal/datastore"
 )
 
@@ -17,11 +17,11 @@ func NewApplication() *Application {
 	return &Application{}
 }
 
-func (app *Application) Start(envConfig config.GlobalConfig) {
+func (app *Application) Start(envConfig configs.GlobalConfig) {
 	log.Info("Starting bookstore app")
 
 	// Get database connection
-	db, err := config.DatabaseConnection(envConfig)
+	db, err := configs.DatabaseConnection(envConfig)
 	if err != nil {
 		log.Fatal(err, "Failed to connect to database")
 	}

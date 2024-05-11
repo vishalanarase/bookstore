@@ -7,7 +7,7 @@ import (
 
 	log "github.com/sirupsen/logrus"
 	"github.com/vishalanarase/bookstore/api"
-	"github.com/vishalanarase/bookstore/internal/config"
+	"github.com/vishalanarase/bookstore/internal/configs"
 )
 
 func init() {
@@ -23,7 +23,7 @@ func init() {
 func main() {
 	log.Info("It's API")
 
-	envConfig := config.Config("../../")
+	envConfig := configs.Config("../../")
 
 	app := api.NewApplication()
 	app.Start(envConfig)

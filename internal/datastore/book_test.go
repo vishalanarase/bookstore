@@ -7,7 +7,7 @@ import (
 	"github.com/gin-gonic/gin"
 	. "github.com/onsi/gomega"
 	log "github.com/sirupsen/logrus"
-	setup "github.com/vishalanarase/bookstore/internal/config"
+	"github.com/vishalanarase/bookstore/internal/configs"
 	"github.com/vishalanarase/bookstore/internal/test"
 	"gorm.io/gorm"
 )
@@ -24,8 +24,8 @@ func TestMain(m *testing.M) {
 		log.Fatal(err, "Failed to api env to test")
 	}
 
-	config := setup.Config("../../")
-	db, err = setup.DatabaseConnection(config)
+	config := configs.Config("../../")
+	db, err = configs.DatabaseConnection(config)
 	if err != nil {
 		log.Fatal(err, "Failed to connect to database")
 	}
