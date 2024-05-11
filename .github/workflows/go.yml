@@ -26,10 +26,10 @@ jobs:
       - name: Set up Go
         uses: actions/setup-go@v3
         with:
-          go-version: 1.20
+          go-version: 1.21
 
       - name: Install soda cli
-        run: go install github.com/gobuffalo/pop/soda@v4.13.1
+        run: go get github.com/gobuffalo/pop/v6/soda@latest && go install github.com/gobuffalo/pop/v6/soda@latest
       - name: Soda cli version
         run: soda --version
 
