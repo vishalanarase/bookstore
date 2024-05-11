@@ -53,3 +53,4 @@ jobs:
           DATABASE_USERNAME: "root"
           DATABASE_PASSWORD: ""
           DATABASE_NAME: "bookstore_api_test"
+          DATABASE_PORT: 3306
