@@ -13,10 +13,12 @@ type Application struct {
 	Server *gin.Engine
 }
 
+// NewApplication returns a new Application
 func NewApplication() *Application {
 	return &Application{}
 }
 
+// Start starts the application
 func (app *Application) Start(envConfig configs.GlobalConfig) {
 	log.Info("Starting bookstore app")
 
