@@ -10,12 +10,14 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
+// TestMain sets the test mode for testing
 func TestMain(m *testing.M) {
 	gin.SetMode(gin.TestMode)
 
 	os.Exit(m.Run())
 }
 
+// TestPing test the ping
 func TestPing(t *testing.T) {
 	ctrl := NewPingController()
 	router := gin.Default()
