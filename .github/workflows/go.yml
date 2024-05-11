@@ -28,7 +28,7 @@ jobs:
           go-version: 1.18
 
       - name: Install soda cli
-        run: go install github.com/gobuffalo/pop/v6/soda@v4.13.0
+        run: go install github.com/gobuffalo/pop/soda@v4.13.1
       - name: Soda go-version
         run: soda --verdion
 
