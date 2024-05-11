@@ -5,21 +5,26 @@ import (
 
 	"github.com/gin-gonic/gin"
 	log "github.com/sirupsen/logrus"
-	"github.com/vishalanarase/bookstore/api/common"
 	"github.com/vishalanarase/bookstore/internal/datastore"
 )
 
-func List(ctx *gin.Context) {
+type IBookController interface {
+	List(ctx *gin.Context)
+	Get(ctx *gin.Context)
+	Create(ctx *gin.Context)
+}
+type BookController struct {
+	store *datastore.Store
+}
 
-	models, err := common.GetModelsFromContext(ctx)
-	if err != nil {
-		log.WithError(err).Error("Failed to get models from context")
-
-		ctx.JSON(http.StatusBadRequest, gin.H{"message": "Error in getting Models"})
-		return
+func NewBookController(dbm *datastore.Store) IBookController {
+	return &BookController{
+		store: dbm,
 	}
+}
 
-	books, err := models.Book.List(ctx)
+func (ctrl *BookController) List(ctx *gin.Context) {
+	books, err := ctrl.store.Book.List(ctx)
 	if err != nil {
 		log.WithError(err).Error("Failed to list books")
 
@@ -30,19 +35,10 @@ func List(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, books)
 }
 
-func Get(ctx *gin.Context) {
-
-	models, err := common.GetModelsFromContext(ctx)
-	if err != nil {
-		log.WithError(err).Error("Failed to get models from context")
-
-		ctx.JSON(http.StatusBadRequest, gin.H{"message": "Error in getting Models"})
-		return
-	}
-
+func (ctrl *BookController) Get(ctx *gin.Context) {
 	uuid := ctx.Param("id")
 
-	book, err := models.Book.Get(ctx, uuid)
+	book, err := ctrl.store.Book.Get(ctx, uuid)
 	if err != nil {
 		log.WithError(err).Error("Failed to get book")
 
@@ -53,15 +49,7 @@ func Get(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, book)
 }
 
-func Create(ctx *gin.Context) {
-	models, err := common.GetModelsFromContext(ctx)
-	if err != nil {
-		log.WithError(err).Error("Failed to get models from context")
-
-		ctx.JSON(http.StatusBadRequest, gin.H{"message": "Error in getting Models"})
-		return
-	}
-
+func (ctrl *BookController) Create(ctx *gin.Context) {
 	book := datastore.Book{}
 
 	if err := ctx.ShouldBindJSON(&book); err != nil {
@@ -70,7 +58,7 @@ func Create(ctx *gin.Context) {
 		return
 	}
 
-	book, err = models.Book.Create(ctx, book)
+	book, err := ctrl.store.Book.Create(ctx, book)
 	if err != nil {
 		log.WithError(err).Error("Failed to create")
 		ctx.JSON(http.StatusBadRequest, gin.H{"message": "Error in inserting Books"})

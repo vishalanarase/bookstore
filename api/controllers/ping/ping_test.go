@@ -17,8 +17,9 @@ func TestMain(m *testing.M) {
 }
 
 func TestPing(t *testing.T) {
+	ctrl := NewPingController()
 	router := gin.Default()
-	router.GET("/v1/ping", Ping)
+	router.GET("/v1/ping", ctrl.Ping)
 
 	rr := httptest.NewRecorder()
 	request, err := http.NewRequest(http.MethodGet, "/v1/ping", nil)

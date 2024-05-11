@@ -64,8 +64,10 @@ func (i *IPRateLimiter) GetLimiter(ip string) *rate.Limiter {
 	return limiter
 }
 
+// RateLimitHandler validates the rate limit
 func RateLimitHandler(context *gin.Context) {
-	lmt := limiter.GetLimiter(context.Request.RemoteAddr)
+	lmt := limiter.GetLimiter(context.ClientIP())
+
 	if !lmt.Allow() {
 		log.Errorf("Too many requests from %s", context.Request.RemoteAddr)
 		context.AbortWithStatusJSON(http.StatusTooManyRequests, http.StatusText(http.StatusTooManyRequests))

@@ -1,17 +1,18 @@
 
+@url = "http://localhost:8080"
 ###Create book
 
-POST http://localhost:8080/v1/books HTTP/1.1
+POST {{url}}/v1/books HTTP/1.1
 
 {
-    "id": "1",
-    "name": "Book Name",
+    "id": "2",
+    "name": "Book Name 2",
     "rating": 5,
     "authorname": "Book Authorname"
 }
 
 ###List books
-GET http://localhost:8080/v1/books HTTP/1.1
+GET {{url}}/v1/books HTTP/1.1
 
 ###Get book
-GET http://localhost:8080/v1/books/1 HTTP/1.1
+GET {{url}}/v1/books/1 HTTP/1.1

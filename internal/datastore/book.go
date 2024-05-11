@@ -26,7 +26,7 @@ type BookModel struct {
 	DB *gorm.DB
 }
 
-func NewBookModel(db *gorm.DB) BookInterface {
+func NewBookStore(db *gorm.DB) BookInterface {
 	return &BookModel{
 		DB: db,
 	}

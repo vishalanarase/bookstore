@@ -11,7 +11,7 @@ type MockBook struct {
 	mock.Mock
 }
 
-func NewBookMockModel() datastore.BookInterface {
+func NewBookMockStore() datastore.BookInterface {
 	return &MockBook{
 		Mock: mock.Mock{},
 	}

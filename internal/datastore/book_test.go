@@ -13,7 +13,7 @@ import (
 )
 
 var (
-	modes = &Models{}
+	store = &Store{}
 	db    = &gorm.DB{}
 )
 
@@ -30,7 +30,7 @@ func TestMain(m *testing.M) {
 		log.Fatal(err, "Failed to connect to database")
 	}
 
-	modes = NewModels(db)
+	store = NewStore(db)
 	test.ResetDatabaseFixtures(db)
 
 	os.Exit(m.Run())
@@ -38,7 +38,7 @@ func TestMain(m *testing.M) {
 
 func TestNewBookModel(t *testing.T) {
 	g := NewWithT(t)
-	bm := NewBookModel(db)
+	bm := NewBookStore(db)
 
 	g.Expect(bm.GetDatabaseObject()).NotTo(BeNil())
 }
@@ -47,7 +47,7 @@ func TestBookList(t *testing.T) {
 	g := NewWithT(t)
 	test.ResetDatabaseFixtures(db)
 
-	books, err := modes.Book.List(&gin.Context{})
+	books, err := store.Book.List(&gin.Context{})
 	g.Expect(err).To(BeNil())
 
 	g.Expect(len(books)).To(Equal(2))
@@ -57,7 +57,7 @@ func TestBookDelete(t *testing.T) {
 	g := NewWithT(t)
 	test.ResetDatabaseFixtures(db)
 
-	book, err := modes.Book.Get(&gin.Context{}, "5317ab5c-3480-451d-ad0a-adee2ba07ca9")
+	book, err := store.Book.Get(&gin.Context{}, "5317ab5c-3480-451d-ad0a-adee2ba07ca9")
 	g.Expect(err).To(BeNil())
 
 	g.Expect(book.ID).To(Equal("5317ab5c-3480-451d-ad0a-adee2ba07ca9"))

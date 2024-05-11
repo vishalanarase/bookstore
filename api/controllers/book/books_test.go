@@ -12,7 +12,6 @@ import (
 	. "github.com/onsi/gomega"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"
-	"github.com/vishalanarase/bookstore/api/middleware"
 	"github.com/vishalanarase/bookstore/internal/datastore"
 	"github.com/vishalanarase/bookstore/internal/mockdatastore"
 )
@@ -49,7 +48,7 @@ func TestCreate(t *testing.T) {
 
 	for name, test := range tests {
 		t.Run(name, func(t *testing.T) {
-			mm := mockdatastore.NewMockModels()
+			mm := mockdatastore.NewMockStore()
 			mockBook := new(mockdatastore.MockBook)
 			mm.Book = mockBook
 
@@ -59,9 +58,9 @@ func TestCreate(t *testing.T) {
 			request, err := http.NewRequest(http.MethodPost, "/v1/books", strings.NewReader(test.payload))
 			g.Expect(err).To(BeNil())
 
+			ctrl := NewBookController(mm)
 			router := gin.Default()
-			router.Use(middleware.Models(*mm))
-			router.POST("/v1/books", Create)
+			router.POST("/v1/books", ctrl.Create)
 			router.ServeHTTP(rr, request)
 
 			g.Expect(test.resp.code).To(Equal(rr.Code))
@@ -97,7 +96,7 @@ func TestGet(t *testing.T) {
 
 	for name, test := range tests {
 		t.Run(name, func(t *testing.T) {
-			mm := mockdatastore.NewMockModels()
+			mm := mockdatastore.NewMockStore()
 			mockBook := new(mockdatastore.MockBook)
 			mm.Book = mockBook
 
@@ -107,9 +106,9 @@ func TestGet(t *testing.T) {
 			request, err := http.NewRequest(http.MethodGet, "/v1/books/"+test.payload, nil)
 			g.Expect(err).To(BeNil())
 
+			ctrl := NewBookController(mm)
 			router := gin.Default()
-			router.Use(middleware.Models(*mm))
-			router.GET("/v1/books/:id", Get)
+			router.GET("/v1/books/:id", ctrl.Get)
 			router.ServeHTTP(rr, request)
 
 			g.Expect(test.resp.code).To(Equal(rr.Code))

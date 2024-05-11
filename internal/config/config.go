@@ -9,6 +9,8 @@ import (
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
+
+	log "github.com/sirupsen/logrus"
 )
 
 // GlobalConfig application global configuration
@@ -36,7 +38,7 @@ func Config(configPath string) GlobalConfig {
 	if _, err := os.Stat(configPath + ".env"); err == nil {
 		err := v.ReadInConfig()
 		if err != nil {
-			panic(fmt.Errorf("fatal error reading config file: %w", err))
+			log.Fatal("Failed to read config: %w", err)
 		}
 	}
 
@@ -56,6 +58,8 @@ func DatabaseConnection(config GlobalConfig) (*gorm.DB, error) {
 	// Open mysql connection
 	var err error
 
+	log.Info("Connecting to database")
+
 	if os.Getenv("API_ENV") == "test" {
 		config.DatabaseName = config.DatabaseNameTest
 	}
@@ -66,6 +70,7 @@ func DatabaseConnection(config GlobalConfig) (*gorm.DB, error) {
 		Logger: logger.Default.LogMode(logger.Silent),
 	})
 	if err != nil {
+		log.WithError(err).Error("Failed to open database connection")
 		return nil, err
 	}
 	// defer db.Close()
