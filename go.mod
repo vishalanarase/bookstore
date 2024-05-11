@@ -5,6 +5,7 @@ go 1.18
 require (
 	github.com/gin-gonic/gin v1.8.1
 	github.com/go-testfixtures/testfixtures/v3 v3.6.1
+	github.com/google/uuid v1.1.2
 	github.com/onsi/gomega v1.20.2
 	github.com/sirupsen/logrus v1.9.3
 	github.com/spf13/viper v1.13.0

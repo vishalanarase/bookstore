@@ -41,6 +41,9 @@ func (app *Application) Start(envConfig configs.GlobalConfig) {
 	// Rate limit api
 	app.Server.Use(middleware.RateLimitHandler)
 
+	// Log the request
+	app.Server.Use(middleware.LogHandler)
+
 	// Register the routes
 	routes.AddRoutes(app.Server, datastore.NewStore(db))
 
