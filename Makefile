@@ -1,14 +1,24 @@
 .PHONY: migrations testmigrations test
 
-migrations:
-	cd $(PWD)/db && \
-	soda -c config/database.yaml create && \
-	soda -c config/database.yaml migrate up
+devsetupdatabase:
+	cd $(PWD)/migrations && \
+	soda -c config/database.yaml create
 
-testmigrations:
-	cd $(PWD)/db && \
-	soda -e test -c config/database.yaml create && \
+testsetupdatabase:
+	cd $(PWD)/migrations && \
+	soda -e test -c config/database.yaml create
+
+devrunmigrations:
+	cd $(PWD)/migrations && \
 	soda -e test -c config/database.yaml migrate up
+
+testrunmigrations:
+	cd $(PWD)/migrations && \
+	soda -e test -c config/database.yaml migrate up
+
+setupdatabase: devsetupdatabase testsetupdatabase
+
+runmigrations: devrunmigrations testrunmigrations
 
 run:
 	cd $(PWD)/cmd/api && \
