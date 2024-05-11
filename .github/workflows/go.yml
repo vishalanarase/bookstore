@@ -28,6 +28,7 @@ jobs:
         with:
           #mysql user: "root"
           #mysql password: ""
+          mysql root password: ""
           mysql database: "bookstore_api_test"
 
       - name: Test
