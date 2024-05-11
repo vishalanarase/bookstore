@@ -29,8 +29,8 @@ jobs:
 
       - name: Install soda cli
         run: go install github.com/gobuffalo/pop/soda@v4.13.1
-      - name: Soda go-version
-        run: soda --verdion
+      - name: Soda cli version
+        run: soda --version
 
       - name: Build
         run: go build -v ./...
