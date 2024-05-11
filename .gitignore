@@ -15,4 +15,5 @@
 # vendor/
 .env
 
-bin/
+bin/*
+!bin/.keep
