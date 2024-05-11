@@ -8,7 +8,7 @@ import (
 	log "github.com/sirupsen/logrus"
 )
 
-// LogHandler log the request
+// LogHandler logs the request and response completion events
 func LogHandler(context *gin.Context) {
 	start := time.Now()
 	var requestID string

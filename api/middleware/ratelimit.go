@@ -12,7 +12,7 @@ import (
 
 var limiter = NewIPRateLimiter(1, 5)
 
-// IPRateLimiter .
+// IPRateLimiter returns a IP address wise rate limiter
 type IPRateLimiter struct {
 	ips map[string]*rate.Limiter
 	mu  *sync.RWMutex
@@ -20,7 +20,7 @@ type IPRateLimiter struct {
 	b   int
 }
 
-// NewIPRateLimiter .
+// NewIPRateLimiter initiates and resturns a new IPRateLimiter
 func NewIPRateLimiter(r rate.Limit, b int) *IPRateLimiter {
 	i := &IPRateLimiter{
 		ips: make(map[string]*rate.Limiter),
