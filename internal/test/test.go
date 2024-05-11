@@ -17,7 +17,7 @@ func InitialFixtureLoad(this *gorm.DB) {
 		os.Exit(1)
 	}
 
-	fixturePath := rootPath() + "test/fixtures"
+	fixturePath := "../../test/fixtures"
 
 	fmt.Println("Test Fixture PATH: ", fixturePath)
 	fmt.Printf("DB: %+v\nSql DB %+v\n", this, db)
@@ -25,7 +25,10 @@ func InitialFixtureLoad(this *gorm.DB) {
 	testFixtures, err = testfixtures.New(
 		testfixtures.Database(db),
 		testfixtures.Dialect("mysql"),
-		testfixtures.Directory(fixturePath),
+		//testfixtures.Directory(fixturePath),
+		testfixtures.Files(
+			"../../test/fixtures/books.yml",
+		),
 	)
 	if err != nil {
 		panic(fmt.Sprintf("Unable to prepare testfixtures %s", err.Error()))
@@ -41,16 +44,4 @@ func ResetDatabaseFixtures(this *gorm.DB) {
 	if err != nil {
 		panic(fmt.Sprintf("Unable to load fixtures %s\n", err.Error()))
 	}
-}
-
-func rootPath() string {
-	path := ""
-	for i := 1; i <= 100; i++ {
-		path = path + "../"
-		if _, err := os.Stat(path + "go.mod"); err == nil {
-			return path
-		}
-	}
-
-	return "/root/path/not/found"
 }
