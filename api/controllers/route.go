@@ -2,7 +2,7 @@ package controllers
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/vishalanarase/bookstore/api/controllers/books"
+	"github.com/vishalanarase/bookstore/api/controllers/book"
 	"github.com/vishalanarase/bookstore/api/controllers/ping"
 )
 
@@ -12,7 +12,7 @@ func AddRoutes(router *gin.Engine) {
 	v1Routes.Use()
 	{
 		v1Routes.GET("/ping", ping.Ping)
-		v1Routes.GET("/books", books.List)
-		v1Routes.GET("/books/:id", books.Get)
+		v1Routes.GET("/books", book.List)
+		v1Routes.GET("/books/:id", book.Get)
 	}
 }
