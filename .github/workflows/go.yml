@@ -17,6 +17,9 @@ jobs:
         with:
           go-version: 1.18
 
+      - name: Install soda cli
+        run: go install github.com/gobuffalo/pop/v6/soda@latest
+
       - name: Build
         run: go build -v ./...
 
@@ -30,6 +33,9 @@ jobs:
           mysql password: "test"
           mysql root password: ""
           mysql database: "bookstore_api_test"
+
+      - name: Run testmigations
+        run: make testmigations
 
       - name: Test
         run: go test -v ./...
