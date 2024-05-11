@@ -34,8 +34,8 @@ jobs:
           mysql root password: ""
           mysql database: "bookstore_api_test"
 
-      - name: Run testmigations
-        run: make testmigations
+      - name: Run testmigrations
+        run: make testmigrations
 
       - name: Test
         run: go test -v ./...
