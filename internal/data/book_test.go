@@ -52,5 +52,5 @@ func TestBookList(t *testing.T) {
 	books, err := modes.Book.List(&gin.Context{})
 	g.Expect(err).To(BeNil())
 
-	g.Expect(len(books)).To(Equal(1))
+	g.Expect(len(books)).To(Equal(2))
 }

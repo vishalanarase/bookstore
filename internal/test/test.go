@@ -19,16 +19,10 @@ func InitialFixtureLoad(this *gorm.DB) {
 
 	fixturePath := "../../test/fixtures"
 
-	fmt.Println("Test Fixture PATH: ", fixturePath)
-	fmt.Printf("DB: %+v\nSql DB %+v\n", this, db)
-
 	testFixtures, err = testfixtures.New(
 		testfixtures.Database(db),
 		testfixtures.Dialect("mysql"),
-		//testfixtures.Directory(fixturePath),
-		testfixtures.Files(
-			"../../test/fixtures/books.yml",
-		),
+		testfixtures.Directory(fixturePath),
 	)
 	if err != nil {
 		panic(fmt.Sprintf("Unable to prepare testfixtures %s", err.Error()))

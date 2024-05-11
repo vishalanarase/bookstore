@@ -1,6 +1,13 @@
-- id: 9e1499f6-d905-4126-bc38-830095543dd3
+- id: "9e1499f6-d905-4126-bc38-830095543dd3"
   name: "My Book"
   rating: 2
   authorname: "Vishal Anarase"
+  created_at: RAW=NOW()
+  updated_at: RAW=NOW()
+
+- id: "8851885d-4936-4efc-8f9f-bea3680a2b3b"
+  name: "Your Book"
+  rating: 3
+  authorname: "Bob"
   created_at: RAW=NOW()
   updated_at: RAW=NOW()
