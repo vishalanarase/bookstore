@@ -10,14 +10,15 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-    # services:
-    #   mysql:
-    #     image: mysql:latest
-    #     env:
-    #       MYSQL_ALLOW_EMPTY_PASSWORD: yes
-    #     ports:
-    #       - 3306:3306
-    #     options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+    services:
+      mysql:
+        image: mysql:latest
+        env:
+          MYSQL_ALLOW_EMPTY_PASSWORD: yes
+          MYSQL_DATABASE: bookstore_api_test
+        ports:
+          - 3306:3306
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
 
     steps:
       - uses: actions/checkout@v3
@@ -35,16 +36,16 @@ jobs:
       - name: Build
         run: go build -v ./...
 
-      - name: Shutdown Ubuntu MySQL (SUDO)
-        run: sudo service mysql stop # Shutdown the Default MySQL, "sudo" is necessary, please not remove it
+      # - name: Shutdown Ubuntu MySQL (SUDO)
+      #   run: sudo service mysql stop # Shutdown the Default MySQL, "sudo" is necessary, please not remove it
 
-      - name: Set up MySQL
-        uses: mirromutth/mysql-action@v1.1
-        with:
-          mysql user: "test"
-          mysql password: "test"
-          mysql root password: ""
-          mysql database: "bookstore_api_test"
+      # - name: Set up MySQL
+      #   uses: mirromutth/mysql-action@v1.1
+      #   with:
+      #     mysql user: "test"
+      #     mysql password: "test"
+      #     mysql root password: ""
+      #     mysql database: "bookstore_api_test"
 
       - name: Run testmigrations
         run: make testmigrations
