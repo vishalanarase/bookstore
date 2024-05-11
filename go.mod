@@ -4,7 +4,7 @@ go 1.18
 
 require (
 	github.com/gin-gonic/gin v1.8.1
-	github.com/go-testfixtures/testfixtures/v3 v3.8.1
+	github.com/go-testfixtures/testfixtures/v3 v3.6.1
 	github.com/onsi/gomega v1.20.2
 	github.com/rs/zerolog v1.28.0
 	github.com/spf13/viper v1.13.0
