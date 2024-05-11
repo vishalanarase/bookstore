@@ -1,4 +1,4 @@
-.PHONY: migrations testmigrations
+.PHONY: migrations testmigrations test
 
 migrations:
 	cd $(PWD)/db && \
@@ -13,3 +13,6 @@ testmigrations:
 run:
 	cd $(PWD)/cmd/api && \
 	go run main.go
+
+test:
+	go test -v ./...
