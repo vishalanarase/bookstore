@@ -30,7 +30,7 @@ func NewBookModel(db *gorm.DB) *BookModel {
 }
 
 func (b *BookModel) List(ctx *gin.Context) ([]Book, error) {
-	var books []Book
+	books := []Book{}
 
 	result := b.DB.Find(&books)
 	if result.Error != nil {

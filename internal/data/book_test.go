@@ -35,6 +35,8 @@ func TestMain(m *testing.M) {
 	}
 
 	modes = NewModels(db)
+	test.ResetDatabaseFixtures(db)
+
 	os.Exit(m.Run())
 }
 
