@@ -27,7 +27,7 @@ jobs:
         uses: mirromutth/mysql-action@v1.1
         with:
           mysql database: "bookstore_api_test"
-          mysql root password: ""
+          #mysql root password: ""
           #mysql user: "root"
 
       - name: Test
