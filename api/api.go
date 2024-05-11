@@ -15,7 +15,10 @@ type Application struct {
 
 // NewApplication returns a new Application
 func NewApplication() *Application {
-	return &Application{}
+	return &Application{
+		// Create new engine instance
+		Server: gin.New(),
+	}
 }
 
 // Start starts the application
@@ -27,9 +30,6 @@ func (app *Application) Start(envConfig configs.GlobalConfig) {
 	if err != nil {
 		log.Fatal(err, "Failed to connect to database")
 	}
-
-	// Create new engine instance
-	app.Server = gin.New()
 
 	// Set the mode
 	//gin.SetMode(gin.ReleaseMode)
