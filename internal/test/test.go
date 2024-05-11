@@ -10,6 +10,7 @@ import (
 
 var testFixtures *testfixtures.Loader
 
+// InitialFixtureLoad returns a database object that loads the initial fixture
 func InitialFixtureLoad(this *gorm.DB) {
 	db, err := this.DB()
 	if err != nil {
@@ -29,6 +30,7 @@ func InitialFixtureLoad(this *gorm.DB) {
 	}
 }
 
+// ResetDatabaseFixtures ensures that the database is reset
 func ResetDatabaseFixtures(this *gorm.DB) {
 	if testFixtures == nil {
 		InitialFixtureLoad(this)
