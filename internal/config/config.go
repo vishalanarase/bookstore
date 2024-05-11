@@ -18,6 +18,7 @@ type GlobalConfig struct {
 	DatabaseHostname string
 	DatabaseUsername string
 	DatabasePassword string
+	DatabasePort     int
 	DatabaseNameTest string
 }
 
@@ -44,6 +45,7 @@ func Config(configPath string) GlobalConfig {
 	config.DatabasePassword = strings.TrimSuffix(v.GetString("database_password"), "\n")
 	config.DatabaseHostname = strings.TrimSuffix(v.GetString("database_hostname"), "\n")
 	config.DatabaseName = strings.TrimSuffix(v.GetString("database_name"), "\n")
+	config.DatabasePort = v.GetInt("database_port")
 	config.DatabaseNameTest = strings.TrimSuffix(v.GetString("database_name_test"), "\n")
 
 	return config
@@ -58,8 +60,8 @@ func DatabaseConnection(config GlobalConfig) (*gorm.DB, error) {
 		config.DatabaseName = config.DatabaseNameTest
 	}
 
-	dns := fmt.Sprintf("%s:%s@tcp(%s:3306)/%s?charset=utf8mb4&parseTime=True&loc=Local",
-		config.DatabaseUsername, config.DatabasePassword, config.DatabaseHostname, config.DatabaseName)
+	dns := fmt.Sprintf("%s:%s@tcp(%s:%d)/%s?charset=utf8mb4&parseTime=True&loc=Local",
+		config.DatabaseUsername, config.DatabasePassword, config.DatabaseHostname, config.DatabasePort, config.DatabaseName)
 	db, err := gorm.Open(mysql.Open(dns), &gorm.Config{
 		Logger: logger.Default.LogMode(logger.Silent),
 	})
