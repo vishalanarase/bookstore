@@ -26,5 +26,8 @@ func main() {
 	envConfig := configs.Config("../../")
 
 	app := api.NewApplication()
-	app.Start(envConfig)
+	err := app.Start(envConfig)
+	if err != nil {
+		log.Fatal(err, "Failed to start the gin server")
+	}
 }

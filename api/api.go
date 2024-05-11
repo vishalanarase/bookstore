@@ -10,19 +10,19 @@ import (
 )
 
 type Application struct {
-	Server *gin.Engine
+	router *gin.Engine
 }
 
 // NewApplication returns a new Application
 func NewApplication() *Application {
 	return &Application{
 		// Create new engine instance
-		Server: gin.New(),
+		router: gin.New(),
 	}
 }
 
 // Start starts the application
-func (app *Application) Start(envConfig configs.GlobalConfig) {
+func (app *Application) Start(envConfig configs.GlobalConfig) error {
 	log.Info("Starting bookstore app")
 
 	// Get database connection
@@ -35,23 +35,20 @@ func (app *Application) Start(envConfig configs.GlobalConfig) {
 	//gin.SetMode(gin.ReleaseMode)
 
 	// Use the logging
-	app.Server.Use(gin.Logger())
+	app.router.Use(gin.Logger())
 
 	// Recover from panic
-	app.Server.Use(gin.Recovery())
+	app.router.Use(gin.Recovery())
 
 	// Rate limit api
-	app.Server.Use(middleware.RateLimitHandler)
+	app.router.Use(middleware.RateLimitHandler)
 
 	// Log the request
-	app.Server.Use(middleware.LogHandler)
+	app.router.Use(middleware.LogHandler)
 
 	// Register the routes
-	routes.AddRoutes(app.Server, datastore.NewStore(db))
+	routes.AddRoutes(app.router, datastore.NewStore(db))
 
 	// Start the api
-	err = app.Server.Run(":8080")
-	if err != nil {
-		log.Fatal(err, "Failed to start the gin server")
-	}
+	return app.router.Run(":8080")
 }
