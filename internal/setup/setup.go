@@ -8,6 +8,7 @@ import (
 	"github.com/spf13/viper"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
+	"gorm.io/gorm/logger"
 )
 
 // GlobalConfig application global configuration
@@ -52,7 +53,9 @@ func DatabaseConnection(config GlobalConfig) (*gorm.DB, error) {
 	var err error
 	dns := fmt.Sprintf("%s:%s@tcp(%s:3306)/%s?charset=utf8mb4&parseTime=True&loc=Local",
 		config.DatabaseUsername, config.DatabasePassword, config.DatabaseHostname, config.DatabaseName)
-	db, err := gorm.Open(mysql.Open(dns), &gorm.Config{})
+	db, err := gorm.Open(mysql.Open(dns), &gorm.Config{
+		Logger: logger.Default.LogMode(logger.Silent),
+	})
 	if err != nil {
 		return nil, err
 	}

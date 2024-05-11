@@ -1,7 +1,6 @@
 package data
 
 import (
-	"errors"
 	"fmt"
 
 	"github.com/gin-gonic/gin"
@@ -28,17 +27,6 @@ func NewBookModel(db *gorm.DB) *BookModel {
 	}
 }
 
-var books = []Book{
-	{
-		ID:   "1",
-		Name: "One",
-	},
-	{
-		ID:   "2",
-		Name: "Two",
-	},
-}
-
 func (b *BookModel) List(ctx *gin.Context) ([]Book, error) {
 	var books []Book
 
@@ -52,11 +40,13 @@ func (b *BookModel) List(ctx *gin.Context) ([]Book, error) {
 }
 
 func (b *BookModel) GetBook(ctx *gin.Context, uuid string) (Book, error) {
-	for _, b := range books {
-		if b.ID == uuid {
-			return b, nil
-		}
+	var book Book
+
+	result := b.DB.Where("id = ?", uuid).Where("deleted_at IS NULL").First(&book)
+	if result.Error != nil {
+		err := fmt.Errorf("failed: %v", result.Error)
+		return book, err
 	}
 
-	return Book{}, errors.New("not Found")
+	return book, nil
 }
