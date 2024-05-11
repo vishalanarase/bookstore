@@ -2,4 +2,4 @@
 
 > Database Migration
 
-    We use soda ![CLI](github.com/gobuffalo/pop/soda) to run database migrations
+We use soda [CLI](https://gobuffalo.io/pt/documentation/database/soda/) to run database migrations
