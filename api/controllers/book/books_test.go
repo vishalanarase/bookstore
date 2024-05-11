@@ -16,16 +16,20 @@ import (
 	"github.com/vishalanarase/bookstore/internal/mockdatastore"
 )
 
+// BookResponse represents a book response
 type BookResponse struct {
 	code int
 	body datastore.Book
 }
 
+// TestMain sets the test mode for testing
 func TestMain(m *testing.M) {
 	gin.SetMode(gin.TestMode)
 
 	os.Exit(m.Run())
 }
+
+// TestCreate creates a new book
 func TestCreate(t *testing.T) {
 	g := NewWithT(t)
 
@@ -74,6 +78,7 @@ func TestCreate(t *testing.T) {
 	}
 }
 
+// TestGet gets the book
 func TestGet(t *testing.T) {
 	g := NewWithT(t)
 
@@ -123,6 +128,7 @@ func TestGet(t *testing.T) {
 	}
 }
 
+// TestBookModel test the book model
 func TestBookModel(t *testing.T) {
 	mockDB := new(mockdatastore.MockBook)
 	// Optionally, set expectations on the mock methods
