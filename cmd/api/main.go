@@ -23,6 +23,9 @@ func main() {
 			Msg("Failed to connect to database")
 	}
 
+	// Recover from panic
+	engine.Use(gin.Recovery())
+
 	// Rate limit api
 	engine.Use(middleware.RateLimitHandler)
 
