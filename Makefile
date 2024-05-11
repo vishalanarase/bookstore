@@ -2,7 +2,7 @@
 
 devsetupdatabase:
 	cd $(PWD)/migrations && \
-	soda -c config/database.yaml create
+	soda -e development -c config/database.yaml create
 
 testsetupdatabase:
 	cd $(PWD)/migrations && \
@@ -10,7 +10,7 @@ testsetupdatabase:
 
 devrunmigrations:
 	cd $(PWD)/migrations && \
-	soda -e test -c config/database.yaml migrate up
+	soda -e development -c config/database.yaml migrate up
 
 testrunmigrations:
 	cd $(PWD)/migrations && \
