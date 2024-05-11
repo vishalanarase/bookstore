@@ -1,4 +1,4 @@
-.PHONY: migrations testmigrations test
+.PHONY: migrations testsetup test
 
 devsetupdatabase:
 	cd $(PWD)/migrations && \
@@ -19,6 +19,8 @@ testrunmigrations:
 setupdatabase: devsetupdatabase testsetupdatabase
 
 runmigrations: devrunmigrations testrunmigrations
+
+testsetup: testsetupdatabase testrunmigrations
 
 run:
 	cd $(PWD)/cmd/api && \
