@@ -23,6 +23,9 @@ func main() {
 			Msg("Failed to connect to database")
 	}
 
+	// Rate limit api
+	engine.Use(middleware.RateLimitHandler)
+
 	engine.Use(middleware.Models(*data.NewModels(db)))
 
 	routes.AddRoutes(engine)
