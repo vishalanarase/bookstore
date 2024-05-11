@@ -5,8 +5,8 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/rs/zerolog/log"
-	"github.com/vishalanarase/bookstore/api/controllers"
 	"github.com/vishalanarase/bookstore/api/middleware"
+	"github.com/vishalanarase/bookstore/api/routes"
 	"github.com/vishalanarase/bookstore/internal/data"
 	"github.com/vishalanarase/bookstore/internal/setup"
 )
@@ -25,7 +25,7 @@ func main() {
 
 	engine.Use(middleware.Models(*data.NewModels(db)))
 
-	controllers.AddRoutes(engine)
+	routes.AddRoutes(engine)
 
 	err = engine.Run(":8080")
 	if err != nil {
