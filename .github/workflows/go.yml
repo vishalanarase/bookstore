@@ -26,9 +26,8 @@ jobs:
       - name: Set up MySQL
         uses: mirromutth/mysql-action@v1.1
         with:
+          mysql user: "root"
           mysql database: "bookstore_api_test"
-          #mysql root password: ""
-          #mysql user: "root"
 
       - name: Test
         run: go test -v ./...
