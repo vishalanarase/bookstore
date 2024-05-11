@@ -53,7 +53,7 @@ func Get(ctx *gin.Context) {
 
 	uuid := ctx.Param("id")
 
-	book, err := models.Book.GetBook(ctx, uuid)
+	book, err := models.Book.Get(ctx, uuid)
 	if err != nil {
 		log.Error().
 			Str("controller", "book").
