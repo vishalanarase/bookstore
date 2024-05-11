@@ -1,5 +1,5 @@
 
-@url = "http://localhost:8080"
+@url = http://localhost:8080
 ###Create book
 
 POST {{url}}/v1/books HTTP/1.1
