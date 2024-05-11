@@ -6,7 +6,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	. "github.com/onsi/gomega"
-	"github.com/rs/zerolog/log"
+	log "github.com/sirupsen/logrus"
 	setup "github.com/vishalanarase/bookstore/internal/config"
 	"github.com/vishalanarase/bookstore/internal/test"
 	"gorm.io/gorm"
@@ -21,17 +21,13 @@ func TestMain(m *testing.M) {
 	gin.SetMode(gin.TestMode)
 	err := os.Setenv("API_ENV", "test")
 	if err != nil {
-		log.Fatal().
-			Err(err).
-			Msg("Failed to api env to test")
+		log.Fatal(err, "Failed to api env to test")
 	}
 
 	config := setup.Config("../../")
 	db, err = setup.DatabaseConnection(config)
 	if err != nil {
-		log.Fatal().
-			Err(err).
-			Msg("Failed to connect to database")
+		log.Fatal(err, "Failed to connect to database")
 	}
 
 	modes = NewModels(db)

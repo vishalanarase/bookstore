@@ -1,26 +1,37 @@
 package main
 
 import (
-	"fmt"
+	"path"
+	"runtime"
+	"strconv"
 
 	"github.com/gin-gonic/gin"
-	"github.com/rs/zerolog/log"
+	log "github.com/sirupsen/logrus"
 	"github.com/vishalanarase/bookstore/api/middleware"
 	"github.com/vishalanarase/bookstore/api/routes"
 	"github.com/vishalanarase/bookstore/internal/config"
 	"github.com/vishalanarase/bookstore/internal/datastore"
 )
 
+func init() {
+	log.SetReportCaller(true)
+	log.SetFormatter(&log.TextFormatter{
+		CallerPrettyfier: func(frame *runtime.Frame) (function string, file string) {
+			fileName := path.Base(frame.File) + ":" + strconv.Itoa(frame.Line)
+			return "", fileName
+		},
+	})
+}
+
 func main() {
-	fmt.Println("It's API")
+	log.Info("It's API")
+
 	engine := gin.New()
 
 	envConfig := config.Config("../../")
 	db, err := config.DatabaseConnection(envConfig)
 	if err != nil {
-		log.Fatal().
-			Err(err).
-			Msg("Failed to connect to database")
+		log.Fatal(err, "Failed to connect to database")
 	}
 
 	// Recover from panic
@@ -35,8 +46,6 @@ func main() {
 
 	err = engine.Run(":8080")
 	if err != nil {
-		log.Fatal().
-			Err(err).
-			Msg("Failed to start the gin server")
+		log.Fatal(err, "Failed to start the gin server")
 	}
 }

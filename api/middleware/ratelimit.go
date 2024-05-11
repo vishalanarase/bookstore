@@ -6,7 +6,7 @@ import (
 	"sync"
 
 	"github.com/gin-gonic/gin"
-	"github.com/rs/zerolog/log"
+	log "github.com/sirupsen/logrus"
 	"golang.org/x/time/rate"
 )
 
@@ -67,7 +67,7 @@ func (i *IPRateLimiter) GetLimiter(ip string) *rate.Limiter {
 func RateLimitHandler(context *gin.Context) {
 	lmt := limiter.GetLimiter(context.Request.RemoteAddr)
 	if !lmt.Allow() {
-		log.Error().Msgf("Too many requests from %s", context.Request.RemoteAddr)
+		log.Errorf("Too many requests from %s", context.Request.RemoteAddr)
 		context.AbortWithStatusJSON(http.StatusTooManyRequests, http.StatusText(http.StatusTooManyRequests))
 	}
 	context.Next()
