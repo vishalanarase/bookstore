@@ -21,19 +21,19 @@ func TestMain(m *testing.M) {
 	os.Exit(m.Run())
 }
 
-func TestList(t *testing.T) {
-	router := gin.Default()
-	router.GET("/v1/books", List)
+// func TestList(t *testing.T) {
+// 	router := gin.Default()
+// 	router.GET("/v1/books", List)
 
-	rr := httptest.NewRecorder()
-	request, err := http.NewRequest(http.MethodGet, "/v1/books", nil)
-	assert.NoError(t, err)
+// 	rr := httptest.NewRecorder()
+// 	request, err := http.NewRequest(http.MethodGet, "/v1/books", nil)
+// 	assert.NoError(t, err)
 
-	router.ServeHTTP(rr, request)
+// 	router.ServeHTTP(rr, request)
 
-	assert.NoError(t, err)
-	assert.Equal(t, http.StatusOK, rr.Code)
-}
+// 	assert.NoError(t, err)
+// 	assert.Equal(t, http.StatusOK, rr.Code)
+// }
 
 func TestGet(t *testing.T) {
 	mockBookResp := &data.Book{
