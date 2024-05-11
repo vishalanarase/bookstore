@@ -10,6 +10,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	. "github.com/onsi/gomega"
+	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"
 	"github.com/vishalanarase/bookstore/api/middleware"
 	"github.com/vishalanarase/bookstore/internal/data"
@@ -121,4 +122,60 @@ func TestGet(t *testing.T) {
 
 		})
 	}
+}
+
+func TestBookModel(t *testing.T) {
+	mockDB := new(mocks.MockBook)
+	// Optionally, set expectations on the mock methods
+
+	t.Run("List", func(t *testing.T) {
+		// Define expected return values and errors
+		expectedBooks := []data.Book{
+			{ID: "1", Name: "Book 1", Rating: 5, Authorname: "Author 1"},
+			{ID: "2", Name: "Book 2", Rating: 4, Authorname: "Author 2"},
+		}
+		mockDB.On("List", mock.Anything).Return(expectedBooks, nil)
+
+		// Call the List method of the mock
+		books, err := mockDB.List(&gin.Context{})
+
+		// Assert the result
+		assert.NoError(t, err)
+		assert.Equal(t, expectedBooks, books)
+
+		// Optionally, verify that the expected method was called
+		mockDB.AssertExpectations(t)
+	})
+
+	t.Run("Get", func(t *testing.T) {
+		// Define expected return values and errors
+		expectedBook := data.Book{ID: "1", Name: "Book 1", Rating: 5, Authorname: "Author 1"}
+		mockDB.On("Get", mock.Anything, "1").Return(expectedBook, nil)
+
+		// Call the Get method of the mock
+		book, err := mockDB.Get(&gin.Context{}, "1")
+
+		// Assert the result
+		assert.NoError(t, err)
+		assert.Equal(t, expectedBook, book)
+
+		// Optionally, verify that the expected method was called
+		mockDB.AssertExpectations(t)
+	})
+
+	t.Run("Create", func(t *testing.T) {
+		// Define expected return values and errors
+		newBook := data.Book{Name: "New Book", Rating: 4, Authorname: "Author 3"}
+		mockDB.On("Create", mock.Anything, newBook).Return(newBook, nil)
+
+		// Call the Create method of the mock
+		createdBook, err := mockDB.Create(&gin.Context{}, newBook)
+
+		// Assert the result
+		assert.NoError(t, err)
+		assert.Equal(t, newBook, createdBook)
+
+		// Optionally, verify that the expected method was called
+		mockDB.AssertExpectations(t)
+	})
 }

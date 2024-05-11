@@ -17,13 +17,13 @@ func NewBookMockModel() *MockBook {
 }
 
 func (m *MockBook) List(ctx *gin.Context) ([]data.Book, error) {
-	return []data.Book{}, nil
+	args := m.Called(ctx)
+	return args.Get(0).([]data.Book), args.Error(1)
 }
 
 func (m *MockBook) Get(ctx *gin.Context, uuid string) (data.Book, error) {
 	args := m.Called(ctx, uuid)
 	return args.Get(0).(data.Book), args.Error(1)
-
 }
 
 func (m *MockBook) Create(ctx *gin.Context, book data.Book) (data.Book, error) {
