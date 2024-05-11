@@ -10,6 +10,7 @@ import (
 type BookInterface interface {
 	List(ctx *gin.Context) ([]Book, error)
 	Get(ctx *gin.Context, uuid string) (Book, error)
+	Create(ctx *gin.Context, book Book) (Book, error)
 }
 
 type Book struct {
@@ -45,6 +46,16 @@ func (b *BookModel) Get(ctx *gin.Context, uuid string) (Book, error) {
 	var book Book
 
 	result := b.DB.Where("id = ?", uuid).Where("deleted_at IS NULL").First(&book)
+	if result.Error != nil {
+		err := fmt.Errorf("failed: %v", result.Error)
+		return book, err
+	}
+
+	return book, nil
+}
+
+func (b *BookModel) Create(ctx *gin.Context, book Book) (Book, error) {
+	result := b.DB.Create(&book)
 	if result.Error != nil {
 		err := fmt.Errorf("failed: %v", result.Error)
 		return book, err

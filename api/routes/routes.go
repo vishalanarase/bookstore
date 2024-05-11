@@ -14,5 +14,6 @@ func AddRoutes(router *gin.Engine) {
 		v1Routes.GET("/ping", ping.Ping)
 		v1Routes.GET("/books", book.List)
 		v1Routes.GET("/books/:id", book.Get)
+		v1Routes.POST("/books", book.Create)
 	}
 }

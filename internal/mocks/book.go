@@ -38,3 +38,7 @@ func (m *MockBook) Get(ctx *gin.Context, uuid string) (data.Book, error) {
 
 	return *r0, r1
 }
+
+func (m *MockBook) Create(ctx *gin.Context, book data.Book) (data.Book, error) {
+	return data.Book{}, nil
+}
