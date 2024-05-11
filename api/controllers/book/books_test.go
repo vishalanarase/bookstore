@@ -13,13 +13,13 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"
 	"github.com/vishalanarase/bookstore/api/middleware"
-	"github.com/vishalanarase/bookstore/internal/data"
-	"github.com/vishalanarase/bookstore/internal/mocks"
+	"github.com/vishalanarase/bookstore/internal/datastore"
+	"github.com/vishalanarase/bookstore/internal/mockdatastore"
 )
 
 type BookResponse struct {
 	code int
-	body data.Book
+	body datastore.Book
 }
 
 func TestMain(m *testing.M) {
@@ -38,7 +38,7 @@ func TestCreate(t *testing.T) {
 			payload: `{"id":"11","name":"Test","rating":4}`,
 			resp: BookResponse{
 				code: http.StatusOK,
-				body: data.Book{
+				body: datastore.Book{
 					ID:     "11",
 					Name:   "Test",
 					Rating: 4,
@@ -49,8 +49,8 @@ func TestCreate(t *testing.T) {
 
 	for name, test := range tests {
 		t.Run(name, func(t *testing.T) {
-			mm := mocks.NewMockModels()
-			mockBook := new(mocks.MockBook)
+			mm := mockdatastore.NewMockModels()
+			mockBook := new(mockdatastore.MockBook)
 			mm.Book = mockBook
 
 			mockBook.On("Create", mock.AnythingOfType("*gin.Context"), test.resp.body).Return(test.resp.body, nil)
@@ -66,7 +66,7 @@ func TestCreate(t *testing.T) {
 
 			g.Expect(test.resp.code).To(Equal(rr.Code))
 
-			respBody := data.Book{}
+			respBody := datastore.Book{}
 			err = json.Unmarshal(rr.Body.Bytes(), &respBody)
 			g.Expect(err).To(BeNil())
 
@@ -86,7 +86,7 @@ func TestGet(t *testing.T) {
 			payload: "1",
 			resp: BookResponse{
 				code: http.StatusOK,
-				body: data.Book{
+				body: datastore.Book{
 					ID:     "1",
 					Name:   "Test",
 					Rating: 4,
@@ -97,8 +97,8 @@ func TestGet(t *testing.T) {
 
 	for name, test := range tests {
 		t.Run(name, func(t *testing.T) {
-			mm := mocks.NewMockModels()
-			mockBook := new(mocks.MockBook)
+			mm := mockdatastore.NewMockModels()
+			mockBook := new(mockdatastore.MockBook)
 			mm.Book = mockBook
 
 			mockBook.On("Get", mock.AnythingOfType("*gin.Context"), test.payload).Return(test.resp.body, nil)
@@ -114,7 +114,7 @@ func TestGet(t *testing.T) {
 
 			g.Expect(test.resp.code).To(Equal(rr.Code))
 
-			respBody := data.Book{}
+			respBody := datastore.Book{}
 			err = json.Unmarshal(rr.Body.Bytes(), &respBody)
 			g.Expect(err).To(BeNil())
 
@@ -125,12 +125,12 @@ func TestGet(t *testing.T) {
 }
 
 func TestBookModel(t *testing.T) {
-	mockDB := new(mocks.MockBook)
+	mockDB := new(mockdatastore.MockBook)
 	// Optionally, set expectations on the mock methods
 
 	t.Run("List", func(t *testing.T) {
 		// Define expected return values and errors
-		expectedBooks := []data.Book{
+		expectedBooks := []datastore.Book{
 			{ID: "1", Name: "Book 1", Rating: 5, Authorname: "Author 1"},
 			{ID: "2", Name: "Book 2", Rating: 4, Authorname: "Author 2"},
 		}
@@ -149,7 +149,7 @@ func TestBookModel(t *testing.T) {
 
 	t.Run("Get", func(t *testing.T) {
 		// Define expected return values and errors
-		expectedBook := data.Book{ID: "1", Name: "Book 1", Rating: 5, Authorname: "Author 1"}
+		expectedBook := datastore.Book{ID: "1", Name: "Book 1", Rating: 5, Authorname: "Author 1"}
 		mockDB.On("Get", mock.Anything, "1").Return(expectedBook, nil)
 
 		// Call the Get method of the mock
@@ -165,7 +165,7 @@ func TestBookModel(t *testing.T) {
 
 	t.Run("Create", func(t *testing.T) {
 		// Define expected return values and errors
-		newBook := data.Book{Name: "New Book", Rating: 4, Authorname: "Author 3"}
+		newBook := datastore.Book{Name: "New Book", Rating: 4, Authorname: "Author 3"}
 		mockDB.On("Create", mock.Anything, newBook).Return(newBook, nil)
 
 		// Call the Create method of the mock

@@ -6,7 +6,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/rs/zerolog/log"
 	"github.com/vishalanarase/bookstore/api/common"
-	"github.com/vishalanarase/bookstore/internal/data"
+	"github.com/vishalanarase/bookstore/internal/datastore"
 )
 
 func List(ctx *gin.Context) {
@@ -80,7 +80,7 @@ func Create(ctx *gin.Context) {
 		return
 	}
 
-	book := data.Book{}
+	book := datastore.Book{}
 
 	if err := ctx.ShouldBindJSON(&book); err != nil {
 		log.Error().

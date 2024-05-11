@@ -1,4 +1,4 @@
-package data
+package datastore
 
 import (
 	"os"
@@ -7,7 +7,7 @@ import (
 	"github.com/gin-gonic/gin"
 	. "github.com/onsi/gomega"
 	"github.com/rs/zerolog/log"
-	"github.com/vishalanarase/bookstore/internal/setup"
+	setup "github.com/vishalanarase/bookstore/internal/config"
 	"github.com/vishalanarase/bookstore/internal/test"
 	"gorm.io/gorm"
 )
@@ -44,7 +44,7 @@ func TestNewBookModel(t *testing.T) {
 	g := NewWithT(t)
 	bm := NewBookModel(db)
 
-	g.Expect(bm.DB).NotTo(BeNil())
+	g.Expect(bm.GetDatabaseObject()).NotTo(BeNil())
 }
 
 func TestBookList(t *testing.T) {

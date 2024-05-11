@@ -7,16 +7,16 @@ import (
 	"github.com/rs/zerolog/log"
 	"github.com/vishalanarase/bookstore/api/middleware"
 	"github.com/vishalanarase/bookstore/api/routes"
-	"github.com/vishalanarase/bookstore/internal/data"
-	"github.com/vishalanarase/bookstore/internal/setup"
+	"github.com/vishalanarase/bookstore/internal/config"
+	"github.com/vishalanarase/bookstore/internal/datastore"
 )
 
 func main() {
 	fmt.Println("It's API")
 	engine := gin.New()
 
-	config := setup.Config("../../")
-	db, err := setup.DatabaseConnection(config)
+	envConfig := config.Config("../../")
+	db, err := config.DatabaseConnection(envConfig)
 	if err != nil {
 		log.Fatal().
 			Err(err).
@@ -29,7 +29,7 @@ func main() {
 	// Rate limit api
 	engine.Use(middleware.RateLimitHandler)
 
-	engine.Use(middleware.Models(*data.NewModels(db)))
+	engine.Use(middleware.Models(*datastore.NewModels(db)))
 
 	routes.AddRoutes(engine)
 

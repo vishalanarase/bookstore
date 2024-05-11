@@ -1,6 +1,7 @@
-package data
+package datastore
 
 import (
+	"errors"
 	"fmt"
 
 	"github.com/gin-gonic/gin"
@@ -11,6 +12,7 @@ type BookInterface interface {
 	List(ctx *gin.Context) ([]Book, error)
 	Get(ctx *gin.Context, uuid string) (Book, error)
 	Create(ctx *gin.Context, book Book) (Book, error)
+	GetDatabaseObject() (*gorm.DB, error)
 }
 
 type Book struct {
@@ -24,10 +26,17 @@ type BookModel struct {
 	DB *gorm.DB
 }
 
-func NewBookModel(db *gorm.DB) *BookModel {
+func NewBookModel(db *gorm.DB) BookInterface {
 	return &BookModel{
 		DB: db,
 	}
+}
+
+func (b *BookModel) GetDatabaseObject() (*gorm.DB, error) {
+	if b.DB != nil {
+		return b.DB, nil
+	}
+	return nil, errors.New("databse not initialized")
 }
 
 func (b *BookModel) List(ctx *gin.Context) ([]Book, error) {
