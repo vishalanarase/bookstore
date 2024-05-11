@@ -5,5 +5,6 @@ migrations:
 	soda -c config/database.yaml create && \
 	soda -c config/database.yaml migrate up
 
-run: migrations
-	go run cmd/api/main.go
+run:
+	cd $(PWD)/cmd/api && \
+	go run main.go

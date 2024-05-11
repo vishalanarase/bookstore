@@ -1,11 +1,13 @@
 package data
 
+import "gorm.io/gorm"
+
 type Models struct {
 	Book BookInterface
 }
 
-func NewModels() *Models {
+func NewModels(db *gorm.DB) *Models {
 	return &Models{
-		Book: NewBookModel(),
+		Book: NewBookModel(db),
 	}
 }

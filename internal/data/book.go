@@ -2,8 +2,10 @@ package data
 
 import (
 	"errors"
+	"fmt"
 
 	"github.com/gin-gonic/gin"
+	"gorm.io/gorm"
 )
 
 type BookInterface interface {
@@ -16,10 +18,14 @@ type Book struct {
 	Name string `json:"name"`
 }
 
-type BookModel struct{}
+type BookModel struct {
+	DB *gorm.DB
+}
 
-func NewBookModel() *BookModel {
-	return &BookModel{}
+func NewBookModel(db *gorm.DB) *BookModel {
+	return &BookModel{
+		DB: db,
+	}
 }
 
 var books = []Book{
@@ -34,6 +40,14 @@ var books = []Book{
 }
 
 func (b *BookModel) List(ctx *gin.Context) ([]Book, error) {
+	var books []Book
+
+	result := b.DB.Find(&books)
+	if result.Error != nil {
+		err := fmt.Errorf("failed: %v", result.Error)
+		return books, err
+	}
+
 	return books, nil
 }
 

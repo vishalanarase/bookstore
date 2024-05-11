@@ -3,7 +3,7 @@ DROP TABLE IF EXISTS `books`;
 
 CREATE TABLE `books` (
   `id` VARCHAR(40) NOT NULL,
-  `title` VARCHAR(50) NOT NULL,
+  `name` VARCHAR(50) NOT NULL,
   `authorname` VARCHAR(30) NOT NULL,
   `rating` INT,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -13,5 +13,5 @@ CREATE TABLE `books` (
     (`rating` >= 1 and `rating` <= 10)),
   PRIMARY KEY (`id`), 
   UNIQUE KEY `id` (`id`),
-  UNIQUE KEY `title` (`id`)
+  UNIQUE KEY `name` (`name`)
 );
