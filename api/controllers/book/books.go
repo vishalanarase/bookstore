@@ -13,7 +13,7 @@ func List(ctx *gin.Context) {
 
 	models, err := common.GetModelsFromContext(ctx)
 	if err != nil {
-		log.Error(err, "Failed to get models from context")
+		log.WithError(err).Error("Failed to get models from context")
 
 		ctx.JSON(http.StatusBadRequest, gin.H{"message": "Error in getting Models"})
 		return
@@ -21,7 +21,7 @@ func List(ctx *gin.Context) {
 
 	books, err := models.Book.List(ctx)
 	if err != nil {
-		log.Error(err, "Failed to list books")
+		log.WithError(err).Error("Failed to list books")
 
 		ctx.JSON(http.StatusBadRequest, gin.H{"message": "Error in Listing Books"})
 		return
@@ -34,7 +34,7 @@ func Get(ctx *gin.Context) {
 
 	models, err := common.GetModelsFromContext(ctx)
 	if err != nil {
-		log.Error(err, "Failed to get models from context")
+		log.WithError(err).Error("Failed to get models from context")
 
 		ctx.JSON(http.StatusBadRequest, gin.H{"message": "Error in getting Models"})
 		return
@@ -44,7 +44,7 @@ func Get(ctx *gin.Context) {
 
 	book, err := models.Book.Get(ctx, uuid)
 	if err != nil {
-		log.Error(err, "Failed to get book")
+		log.WithError(err).Error("Failed to get book")
 
 		ctx.JSON(http.StatusBadRequest, gin.H{"message": "Error in getting Books"})
 		return
@@ -56,7 +56,7 @@ func Get(ctx *gin.Context) {
 func Create(ctx *gin.Context) {
 	models, err := common.GetModelsFromContext(ctx)
 	if err != nil {
-		log.Error(err, "Failed to get models from context")
+		log.WithError(err).Error("Failed to get models from context")
 
 		ctx.JSON(http.StatusBadRequest, gin.H{"message": "Error in getting Models"})
 		return
@@ -65,14 +65,14 @@ func Create(ctx *gin.Context) {
 	book := datastore.Book{}
 
 	if err := ctx.ShouldBindJSON(&book); err != nil {
-		log.Error(err, "Failed to bind")
+		log.WithError(err).Error("Failed to bind")
 		ctx.JSON(http.StatusBadRequest, gin.H{"message": "bad book data"})
 		return
 	}
 
 	book, err = models.Book.Create(ctx, book)
 	if err != nil {
-		log.Error(err, "Failed to create")
+		log.WithError(err).Error("Failed to create")
 		ctx.JSON(http.StatusBadRequest, gin.H{"message": "Error in inserting Books"})
 		return
 	}
