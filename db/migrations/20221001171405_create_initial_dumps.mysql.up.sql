@@ -5,7 +5,7 @@ CREATE TABLE `books` (
   `id` VARCHAR(40) NOT NULL,
   `name` VARCHAR(50) NOT NULL,
   `authorname` VARCHAR(30) NOT NULL,
-  `rating` INT,
+  `rating` INT NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `deleted_at` datetime DEFAULT NULL,

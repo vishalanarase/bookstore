@@ -33,7 +33,7 @@ jobs:
       - name: Soda cli version
         run: soda --version
 
-      - name: Build
+      - name: Go Build
         run: go build -v ./...
 
       - name: Run testmigrations
@@ -47,8 +47,9 @@ jobs:
             exit $exitcode
           fi
 
-      - name: Test
+      - name: Go Test
         run: go test -v ./...
         env:
           DATABASE_USERNAME: "root"
           DATABASE_PASSWORD: ""
+          DATABASE_NAME: "bookstore_api_test"
