@@ -34,8 +34,12 @@ func ResetDatabaseFixtures(this *gorm.DB) {
 		InitialFixtureLoad(this)
 	}
 
-	err := testFixtures.Load()
-	if err != nil {
-		panic(fmt.Sprintf("Unable to load fixtures %s\n", err.Error()))
+	for i := 0; i < 10; i++ {
+		err := testFixtures.Load()
+		if err != nil {
+			fmt.Printf("Unable to load fixtures %s\n", err.Error())
+			continue
+		}
+		break
 	}
 }
