@@ -1,0 +1,6 @@
+- id: 9e1499f6-d905-4126-bc38-830095543dd3
+  name: "My Book"
+  rating: 2
+  authorname: "Vishal Anarase"
+  created_at: RAW=NOW()
+  updated_at: RAW=NOW()
