@@ -56,3 +56,16 @@ func TestBookList(t *testing.T) {
 
 	g.Expect(len(books)).To(Equal(2))
 }
+
+func TestBookDelete(t *testing.T) {
+	g := NewWithT(t)
+	test.ResetDatabaseFixtures(db)
+
+	book, err := modes.Book.Get(&gin.Context{}, "5317ab5c-3480-451d-ad0a-adee2ba07ca9")
+	g.Expect(err).To(BeNil())
+
+	g.Expect(book.ID).To(Equal("5317ab5c-3480-451d-ad0a-adee2ba07ca9"))
+	g.Expect(book.Name).To(Equal("My Book"))
+	g.Expect(book.Authorname).To(Equal("Vishal Anarase"))
+	g.Expect(book.Rating).To(Equal(2))
+}

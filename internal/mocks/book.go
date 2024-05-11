@@ -20,7 +20,7 @@ func (m *MockBook) List(ctx *gin.Context) ([]data.Book, error) {
 	return []data.Book{}, nil
 }
 
-func (m *MockBook) GetBook(ctx *gin.Context, uuid string) (data.Book, error) {
+func (m *MockBook) Get(ctx *gin.Context, uuid string) (data.Book, error) {
 	ret := m.Called(ctx, uuid)
 
 	// first value passed to "Return"
