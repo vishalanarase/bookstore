@@ -13,8 +13,10 @@ type BookInterface interface {
 }
 
 type Book struct {
-	ID   string `json:"id"`
-	Name string `json:"name"`
+	ID         string `json:"id"`
+	Name       string `json:"name"`
+	Rating     int    `json:"rating"`
+	Authorname string `json:"authorname"`
 }
 
 type BookModel struct {

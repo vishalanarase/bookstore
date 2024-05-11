@@ -48,7 +48,7 @@ jobs:
           fi
 
       - name: Test
-        run: |
-          export DATABASE_USERNAME="root"
-          export DATABASE_PASSWORD=""
-          go test -v ./...
+        run: go test -v ./...
+        env:
+          DATABASE_USERNAME: "root"
+          DATABASE_PASSWORD: ""
