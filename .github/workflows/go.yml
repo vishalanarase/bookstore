@@ -36,17 +36,6 @@ jobs:
       - name: Build
         run: go build -v ./...
 
-      # - name: Shutdown Ubuntu MySQL (SUDO)
-      #   run: sudo service mysql stop # Shutdown the Default MySQL, "sudo" is necessary, please not remove it
-
-      # - name: Set up MySQL
-      #   uses: mirromutth/mysql-action@v1.1
-      #   with:
-      #     mysql user: "test"
-      #     mysql password: "test"
-      #     mysql root password: ""
-      #     mysql database: "bookstore_api_test"
-
       - name: Run testmigrations
         run: |
           set +e
@@ -59,4 +48,7 @@ jobs:
           fi
 
       - name: Test
-        run: go test -v ./...
+        run: |
+          export DATABASE_USERNAME="root"
+          export DATABASE_PASSWORD=""
+          go test -v ./...
