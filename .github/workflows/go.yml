@@ -50,6 +50,7 @@ jobs:
       - name: Go Test
         run: go test -v ./...
         env:
+          API_ENV: "test"
           DATABASE_USERNAME: "root"
           DATABASE_PASSWORD: ""
           DATABASE_NAME: "bookstore_api_test"

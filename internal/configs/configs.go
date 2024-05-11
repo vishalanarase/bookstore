@@ -3,6 +3,7 @@ package configs
 import (
 	"fmt"
 	"os"
+	"strconv"
 	"strings"
 
 	"github.com/spf13/viper"
@@ -61,7 +62,10 @@ func DatabaseConnection(config GlobalConfig) (*gorm.DB, error) {
 	log.Info("Connecting to database")
 
 	if os.Getenv("API_ENV") == "test" {
-		config.DatabaseName = config.DatabaseNameTest
+		config.DatabaseUsername = os.Getenv("DATABASE_USERNAME")
+		config.DatabasePassword = os.Getenv("DATABASE_PASSWOR")
+		config.DatabaseName = os.Getenv("DATABASE_NAME")
+		config.DatabasePort, _ = strconv.Atoi(os.Getenv("DATABASE_PORT"))
 	}
 
 	dns := fmt.Sprintf("%s:%s@tcp(%s:%d)/%s?charset=utf8mb4&parseTime=True&loc=Local",
