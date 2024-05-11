@@ -62,10 +62,17 @@ func DatabaseConnection(config GlobalConfig) (*gorm.DB, error) {
 	log.Info("Connecting to database")
 
 	if os.Getenv("API_ENV") == "test" {
-		config.DatabaseUsername = os.Getenv("DATABASE_USERNAME")
+		config.DatabaseName = config.DatabaseNameTest
+		if config.DatabaseUsername == "" {
+			config.DatabaseUsername = os.Getenv("DATABASE_USERNAME")
+		}
 		config.DatabasePassword = os.Getenv("DATABASE_PASSWOR")
-		config.DatabaseName = os.Getenv("DATABASE_NAME")
-		config.DatabasePort, _ = strconv.Atoi(os.Getenv("DATABASE_PORT"))
+		if config.DatabaseName == "" {
+			config.DatabaseName = os.Getenv("DATABASE_NAME")
+		}
+		if config.DatabasePort == 0 {
+			config.DatabasePort, _ = strconv.Atoi(os.Getenv("DATABASE_PORT"))
+		}
 	}
 
 	dns := fmt.Sprintf("%s:%s@tcp(%s:%d)/%s?charset=utf8mb4&parseTime=True&loc=Local",
