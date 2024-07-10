@@ -50,18 +50,34 @@ func TestBookList(t *testing.T) {
 	books, err := store.Book.List(&gin.Context{})
 	g.Expect(err).To(BeNil())
 
-	g.Expect(len(books)).To(Equal(2))
+	g.Expect(len(books)).To(Equal(5))
 }
 
-func TestBookDelete(t *testing.T) {
+func TestBookGet(t *testing.T) {
 	g := NewWithT(t)
 	test.ResetDatabaseFixtures(db)
 
-	book, err := store.Book.Get(&gin.Context{}, "5317ab5c-3480-451d-ad0a-adee2ba07ca9")
+	expected := Book{
+		ID:        "550e8400-e29b-41d4-a716-446655440003",
+		Title:     "The Catcher in the Rye",
+		Author:    "J.D. Salinger",
+		Publisher: "Little, Brown and Company",
+		ISBN:      "9780316769488",
+		Year:      1951,
+		Edition:   1,
+		Rating:    7,
+	}
+
+	book, err := store.Book.Get(&gin.Context{}, "550e8400-e29b-41d4-a716-446655440003")
 	g.Expect(err).To(BeNil())
 
-	g.Expect(book.ID).To(Equal("5317ab5c-3480-451d-ad0a-adee2ba07ca9"))
-	g.Expect(book.Name).To(Equal("My Book"))
-	g.Expect(book.Authorname).To(Equal("Vishal Anarase"))
-	g.Expect(book.Rating).To(Equal(2))
+	g.Expect(book.ID).To(Equal("550e8400-e29b-41d4-a716-446655440003"))
+	g.Expect(expected.ID).To(Equal(book.ID))
+	g.Expect(expected.Title).To(Equal(book.Title))
+	g.Expect(expected.Author).To(Equal(book.Author))
+	g.Expect(expected.Publisher).To(Equal(book.Publisher))
+	g.Expect(expected.ISBN).To(Equal(book.ISBN))
+	g.Expect(expected.Year).To(Equal(book.Year))
+	g.Expect(expected.Edition).To(Equal(book.Edition))
+	g.Expect(expected.Rating).To(Equal(book.Rating))
 }

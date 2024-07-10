@@ -1,13 +1,49 @@
-- id: "5317ab5c-3480-451d-ad0a-adee2ba07ca9"
-  name: "My Book"
-  rating: 2
-  authorname: "Vishal Anarase"
+- id: "550e8400-e29b-41d4-a716-446655440000"
+  title: "To Kill a Mockingbird"
+  author: "Harper Lee"
+  publisher: "J.B. Lippincott & Co."
+  isbn: "9780060935467"
+  year: 1960
+  edition: 1
+  rating: 9
   created_at: RAW=NOW()
-  updated_at: RAW=NOW()
 
-- id: "02fd6df1-c973-4024-8951-3a15b0d5e8e3"
-  name: "Your Book"
-  rating: 3
-  authorname: "Bob"
+- id: "550e8400-e29b-41d4-a716-446655440001"
+  title: "1984"
+  author: "George Orwell"
+  publisher: "Secker & Warburg"
+  isbn: "9780451524935"
+  year: 1949
+  edition: 1
+  rating: 10
   created_at: RAW=NOW()
-  updated_at: RAW=NOW()
+
+- id: "550e8400-e29b-41d4-a716-446655440002"
+  title: "The Great Gatsby"
+  author: "F. Scott Fitzgerald"
+  publisher: "Charles Scribner's Sons"
+  isbn: "9780743273565"
+  year: 1925
+  edition: 1
+  rating: 8
+  created_at: RAW=NOW()
+
+- id: "550e8400-e29b-41d4-a716-446655440003"
+  title: "The Catcher in the Rye"
+  author: "J.D. Salinger"
+  publisher: "Little, Brown and Company"
+  isbn: "9780316769488"
+  year: 1951
+  edition: 1
+  rating: 7
+  created_at: RAW=NOW()
+
+- id: "550e8400-e29b-41d4-a716-446655440004"
+  title: "Pride and Prejudice"
+  author: "Jane Austen"
+  publisher: "T. Egerton, Whitehall"
+  isbn: "9781503290563"
+  year: 1813
+  edition: 1
+  rating: 9
+  created_at: RAW=NOW()

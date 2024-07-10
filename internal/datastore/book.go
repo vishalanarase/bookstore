@@ -3,6 +3,7 @@ package datastore
 import (
 	"errors"
 	"fmt"
+	"time"
 
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
@@ -18,10 +19,17 @@ type BookInterface interface {
 
 // Book represents a Book
 type Book struct {
-	ID         string `json:"id"`
-	Name       string `json:"name"`
-	Rating     int    `json:"rating"`
-	Authorname string `json:"authorname"`
+	ID        string     `json:"id"`
+	Title     string     `json:"title"`
+	Author    string     `json:"author"`
+	Publisher string     `json:"publisher"`
+	ISBN      string     `json:"isbn"`
+	Year      int        `json:"year"`
+	Edition   int        `json:"edition,omitempty"` // omitempty for optional fields
+	Rating    int        `json:"rating"`
+	CreatedAt time.Time  `json:"created_at"`
+	UpdatedAt time.Time  `json:"updated_at"`
+	DeletedAt *time.Time `json:"deleted_at,omitempty"` // omitempty for optional fields
 }
 
 // BookRepo represents a Book
