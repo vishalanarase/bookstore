@@ -38,7 +38,7 @@ func TestCreate(t *testing.T) {
 		resp    BookResponse
 	}{
 		"should return 200": {
-			payload: `{"id":"11","name":"Test","rating":4}`,
+			payload: `{"id":"11","title":"Test","rating":4}`,
 			resp: BookResponse{
 				code: http.StatusOK,
 				body: datastore.Book{
