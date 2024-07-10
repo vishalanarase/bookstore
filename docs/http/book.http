@@ -5,10 +5,14 @@
 POST {{url}}/v1/books HTTP/1.1
 
 {
-    "id": "2",
-    "name": "Book Name 2",
-    "rating": 5,
-    "authorname": "Book Authorname"
+    "id": "550e8400-e29b-41d4-a716-446655440010",
+    "title": "Golang",
+    "author": "J.D. Salinger",
+    "publisher": "Oreally",
+    "isbn": "9780316769998",
+    "year": 2024,
+    "edition": 1,
+    "rating": 7
 }
 
 ###List books
