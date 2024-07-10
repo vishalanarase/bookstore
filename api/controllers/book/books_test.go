@@ -43,7 +43,7 @@ func TestCreate(t *testing.T) {
 				code: http.StatusOK,
 				body: datastore.Book{
 					ID:     "11",
-					Name:   "Test",
+					Title:  "Test",
 					Rating: 4,
 				},
 			},
@@ -92,7 +92,7 @@ func TestGet(t *testing.T) {
 				code: http.StatusOK,
 				body: datastore.Book{
 					ID:     "1",
-					Name:   "Test",
+					Title:  "Test",
 					Rating: 4,
 				},
 			},
@@ -136,8 +136,8 @@ func TestBookModel(t *testing.T) {
 	t.Run("List", func(t *testing.T) {
 		// Define expected return values and errors
 		expectedBooks := []datastore.Book{
-			{ID: "1", Name: "Book 1", Rating: 5, Authorname: "Author 1"},
-			{ID: "2", Name: "Book 2", Rating: 4, Authorname: "Author 2"},
+			{ID: "1", Title: "Book 1", Rating: 5, Author: "Author 1"},
+			{ID: "2", Title: "Book 2", Rating: 4, Author: "Author 2"},
 		}
 		mockDB.On("List", mock.Anything).Return(expectedBooks, nil)
 
@@ -154,7 +154,7 @@ func TestBookModel(t *testing.T) {
 
 	t.Run("Get", func(t *testing.T) {
 		// Define expected return values and errors
-		expectedBook := datastore.Book{ID: "1", Name: "Book 1", Rating: 5, Authorname: "Author 1"}
+		expectedBook := datastore.Book{ID: "1", Title: "Book 1", Rating: 5, Author: "Author 1"}
 		mockDB.On("Get", mock.Anything, "1").Return(expectedBook, nil)
 
 		// Call the Get method of the mock
@@ -170,7 +170,7 @@ func TestBookModel(t *testing.T) {
 
 	t.Run("Create", func(t *testing.T) {
 		// Define expected return values and errors
-		newBook := datastore.Book{Name: "New Book", Rating: 4, Authorname: "Author 3"}
+		newBook := datastore.Book{Title: "New Book", Rating: 4, Author: "Author 3"}
 		mockDB.On("Create", mock.Anything, newBook).Return(newBook, nil)
 
 		// Call the Create method of the mock
