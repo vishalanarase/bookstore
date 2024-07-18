@@ -2,16 +2,21 @@ package middleware
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/vishalanarase/bookstore/pkg/metrics"
+	"github.com/prometheus/client_golang/prometheus"
+	"github.com/vishalanarase/bookstore/pkg/monitoring"
 )
 
-// MetricsHandlerMiddleware returns a Gin middleware function that increments request metrics
-func MetricsHandlerMiddleware(metrics *metrics.Metrics) gin.HandlerFunc {
-	return func(context *gin.Context) {
-		// Increment request counter using metrics object
-		metrics.IncrementRequest(context.Request.Method)
+// MetricsMiddleware returns a Gin middleware function that increments request metrics
+func MetricsMiddleware() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		path := c.Request.URL.Path
+		method := c.Request.Method
 
-		// Call the next handler
-		context.Next()
+		timer := prometheus.NewTimer(monitoring.RequestDuration.WithLabelValues(path, method))
+		defer timer.ObserveDuration()
+
+		monitoring.RequestCounter.WithLabelValues(path, method).Inc()
+
+		c.Next()
 	}
 }

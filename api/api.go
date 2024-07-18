@@ -7,12 +7,11 @@ import (
 	"github.com/vishalanarase/bookstore/api/routes"
 	"github.com/vishalanarase/bookstore/internal/configs"
 	"github.com/vishalanarase/bookstore/internal/datastore"
-	"github.com/vishalanarase/bookstore/pkg/metrics"
+	"github.com/vishalanarase/bookstore/pkg/monitoring"
 )
 
 type Application struct {
-	router  *gin.Engine
-	Metrics *metrics.Metrics
+	router *gin.Engine
 }
 
 // NewApplication returns a new Application
@@ -20,8 +19,6 @@ func NewApplication() *Application {
 	return &Application{
 		// Create new engine instance
 		router: gin.New(),
-		// Set up metrics
-		Metrics: metrics.NewMetrics(),
 	}
 }
 
@@ -36,7 +33,8 @@ func (app *Application) Start(envConfig configs.GlobalConfig) error {
 	}
 
 	// Register metrics
-	app.Metrics.Register()
+	monitoring.InitMetrics()
+	monitoring.StartMetricsServer()
 
 	// Set the mode
 	//gin.SetMode(gin.ReleaseMode)
@@ -54,10 +52,10 @@ func (app *Application) Start(envConfig configs.GlobalConfig) error {
 	app.router.Use(middleware.LogHandler)
 
 	// Metrics
-	app.router.Use(middleware.MetricsHandlerMiddleware(app.Metrics))
+	app.router.Use(middleware.MetricsMiddleware())
 
 	// Register the routes
-	routes.AddRoutes(app.router, app.Metrics, datastore.NewStore(db))
+	routes.AddRoutes(app.router, datastore.NewStore(db))
 
 	// Start the api
 	return app.router.Run(":8080")
