@@ -42,3 +42,7 @@ func (m *MockBook) Create(ctx *gin.Context, book datastore.Book) (datastore.Book
 	args := m.Called(ctx, book)
 	return args.Get(0).(datastore.Book), args.Error(1)
 }
+
+func (m *MockBook) Delete(ctx *gin.Context, uuid string) error {
+	return nil
+}
