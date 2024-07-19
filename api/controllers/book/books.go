@@ -13,6 +13,7 @@ type IBookController interface {
 	List(ctx *gin.Context)
 	Get(ctx *gin.Context)
 	Create(ctx *gin.Context)
+	Delete(ctx *gin.Context)
 }
 
 // BookController represents a BookController structure
@@ -73,4 +74,9 @@ func (ctrl *BookController) Create(ctx *gin.Context) {
 	}
 
 	ctx.JSON(http.StatusOK, book)
+}
+
+// Delete a book
+func (ctrl *BookController) Delete(ctx *gin.Context) {
+	ctx.JSON(http.StatusOK, nil)
 }
