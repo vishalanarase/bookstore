@@ -14,6 +14,7 @@ type BookInterface interface {
 	List(ctx *gin.Context) ([]Book, error)
 	Get(ctx *gin.Context, uuid string) (Book, error)
 	Create(ctx *gin.Context, book Book) (Book, error)
+	Delete(ctx *gin.Context, uuid string) error
 	GetDatabaseObject() (*gorm.DB, error)
 }
 
@@ -87,4 +88,8 @@ func (b *BookRepo) Create(ctx *gin.Context, book Book) (Book, error) {
 	}
 
 	return book, nil
+}
+
+func (b *BookRepo) Delete(ctx *gin.Context, uuid string) error {
+	return nil
 }
