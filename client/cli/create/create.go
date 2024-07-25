@@ -20,5 +20,5 @@ var CreateCmd = &cobra.Command{
 }
 
 func init() {
-	CreateCmd.Flags().StringVarP(&file, "file", "f", "", "File spec to create a book")
+	CreateCmd.Flags().StringVarP(&file, "file", "f", "", "File to create a book")
 }

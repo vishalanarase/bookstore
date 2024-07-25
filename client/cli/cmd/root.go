@@ -7,16 +7,15 @@ import (
 	"os"
 
 	"github.com/spf13/cobra"
-	"github.com/vishalanarase/bookstore/client/cli/create"
 )
 
 var cfgFile string
 
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
-	Use:   "book",
-	Short: "book is cli to manage bookstore",
-	Long:  "book is cli to manage bookstore",
+	Use:   "cli",
+	Short: "cli to manage bookstore",
+	Long:  "cli to manage bookstore",
 
 	Run: func(cmd *cobra.Command, args []string) {
 		cmd.Help()
@@ -38,5 +37,5 @@ func init() {
 	rootCmd.PersistentFlags().StringVarP(&cfgFile, "config", "c", "", "config file (default is $HOME/.cli.yaml)")
 
 	// Add subcommands
-	rootCmd.AddCommand(create.CreateCmd)
+	rootCmd.AddCommand(bookCmd)
 }
