@@ -2,7 +2,7 @@ package cmd
 
 import (
 	"github.com/spf13/cobra"
-	"github.com/vishalanarase/bookstore/client/cli/create"
+	"github.com/vishalanarase/bookstore/client/cli/cmd/create"
 )
 
 var bookCmd = &cobra.Command{
