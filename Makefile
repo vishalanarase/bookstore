@@ -26,5 +26,8 @@ run:
 	cd $(PWD)/cmd/api && \
 	go run main.go
 
+cli:
+	go build -o bin/cli client/cli/main.go
+
 test:
 	go test -v ./...
