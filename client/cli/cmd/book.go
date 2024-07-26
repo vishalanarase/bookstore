@@ -3,6 +3,7 @@ package cmd
 import (
 	"github.com/spf13/cobra"
 	"github.com/vishalanarase/bookstore/client/cli/cmd/create"
+	"github.com/vishalanarase/bookstore/client/cli/cmd/list"
 )
 
 var bookCmd = &cobra.Command{
@@ -17,4 +18,5 @@ var bookCmd = &cobra.Command{
 
 func init() {
 	bookCmd.AddCommand(create.CreateCmd)
+	bookCmd.AddCommand(list.ListCmd)
 }
