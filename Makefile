@@ -28,6 +28,9 @@ run:
 
 cli:
 	go build -o bin/cli client/cli/main.go
+	
+client:
+	openapi-generator generate -i docs/swagger/v1/api.yaml -g go -o ./clients
 
 test:
 	go test -v ./...
