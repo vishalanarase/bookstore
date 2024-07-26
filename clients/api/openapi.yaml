@@ -1,0 +1,175 @@
+openapi: 3.0.0
+info:
+  description: API for managing a bookstore.
+  title: Bookstore API
+  version: 1.0.0
+servers:
+- description: Production server
+  url: https://api.bookstore.com/v1
+paths:
+  /books:
+    get:
+      operationId: listBooks
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/Book'
+                type: array
+          description: A list of books.
+      summary: List all books
+      tags:
+      - Books
+    post:
+      operationId: addBook
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateBook'
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Book'
+          description: The book was created successfully.
+      summary: Add a new book
+      tags:
+      - Books
+  /books/{bookId}:
+    delete:
+      operationId: deleteBook
+      parameters:
+      - explode: false
+        in: path
+        name: bookId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "204":
+          description: The book was deleted successfully.
+      summary: Delete a book by ID
+      tags:
+      - Books
+    get:
+      operationId: getBookById
+      parameters:
+      - explode: false
+        in: path
+        name: bookId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Book'
+          description: The requested book.
+        "404":
+          description: Book not found
+      summary: Get a book by ID
+      tags:
+      - Books
+    put:
+      operationId: updateBook
+      parameters:
+      - explode: false
+        in: path
+        name: bookId
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateBook'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Book'
+          description: The book was updated successfully.
+      summary: Update a book by ID
+      tags:
+      - Books
+components:
+  schemas:
+    Book:
+      example:
+        author: author
+        price: 0.8008282
+        isbn: isbn
+        id: id
+        title: title
+        published_date: 2000-01-23
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        author:
+          type: string
+        isbn:
+          type: string
+        price:
+          format: float
+          type: number
+        published_date:
+          format: date
+          type: string
+      type: object
+    CreateBook:
+      example:
+        author: author
+        price: 0.8008282
+        isbn: isbn
+        title: title
+        published_date: 2000-01-23
+      properties:
+        title:
+          type: string
+        author:
+          type: string
+        isbn:
+          type: string
+        price:
+          format: float
+          type: number
+        published_date:
+          format: date
+          type: string
+      type: object
+    UpdateBook:
+      example:
+        author: author
+        price: 0.8008282
+        isbn: isbn
+        title: title
+        published_date: 2000-01-23
+      properties:
+        title:
+          type: string
+        author:
+          type: string
+        isbn:
+          type: string
+        price:
+          format: float
+          type: number
+        published_date:
+          format: date
+          type: string
+      type: object
