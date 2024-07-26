@@ -114,12 +114,12 @@ components:
           type: string
         isbn:
           type: string
-        price:
-          type: number
-          format: float
-        published_date:
-          type: string
-          format: date
+        year:
+          type: integer
+        edition:
+          type: integer
+        rating:
+          type: integer
     CreateBook:
       type: object
       properties:

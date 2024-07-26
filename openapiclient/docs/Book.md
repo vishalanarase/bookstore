@@ -8,8 +8,9 @@ Name | Type | Description | Notes
 **Title** | Pointer to **string** |  | [optional] 
 **Author** | Pointer to **string** |  | [optional] 
 **Isbn** | Pointer to **string** |  | [optional] 
-**Price** | Pointer to **float32** |  | [optional] 
-**PublishedDate** | Pointer to **string** |  | [optional] 
+**Year** | Pointer to **int32** |  | [optional] 
+**Edition** | Pointer to **int32** |  | [optional] 
+**Rating** | Pointer to **int32** |  | [optional] 
 
 ## Methods
 
@@ -130,55 +131,80 @@ SetIsbn sets Isbn field to given value.
 
 HasIsbn returns a boolean if a field has been set.
 
-### GetPrice
+### GetYear
 
-`func (o *Book) GetPrice() float32`
+`func (o *Book) GetYear() int32`
 
-GetPrice returns the Price field if non-nil, zero value otherwise.
+GetYear returns the Year field if non-nil, zero value otherwise.
 
-### GetPriceOk
+### GetYearOk
 
-`func (o *Book) GetPriceOk() (*float32, bool)`
+`func (o *Book) GetYearOk() (*int32, bool)`
 
-GetPriceOk returns a tuple with the Price field if it's non-nil, zero value otherwise
+GetYearOk returns a tuple with the Year field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetPrice
+### SetYear
 
-`func (o *Book) SetPrice(v float32)`
+`func (o *Book) SetYear(v int32)`
 
-SetPrice sets Price field to given value.
+SetYear sets Year field to given value.
 
-### HasPrice
+### HasYear
 
-`func (o *Book) HasPrice() bool`
+`func (o *Book) HasYear() bool`
 
-HasPrice returns a boolean if a field has been set.
+HasYear returns a boolean if a field has been set.
 
-### GetPublishedDate
+### GetEdition
 
-`func (o *Book) GetPublishedDate() string`
+`func (o *Book) GetEdition() int32`
 
-GetPublishedDate returns the PublishedDate field if non-nil, zero value otherwise.
+GetEdition returns the Edition field if non-nil, zero value otherwise.
 
-### GetPublishedDateOk
+### GetEditionOk
 
-`func (o *Book) GetPublishedDateOk() (*string, bool)`
+`func (o *Book) GetEditionOk() (*int32, bool)`
 
-GetPublishedDateOk returns a tuple with the PublishedDate field if it's non-nil, zero value otherwise
+GetEditionOk returns a tuple with the Edition field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetPublishedDate
+### SetEdition
 
-`func (o *Book) SetPublishedDate(v string)`
+`func (o *Book) SetEdition(v int32)`
 
-SetPublishedDate sets PublishedDate field to given value.
+SetEdition sets Edition field to given value.
 
-### HasPublishedDate
+### HasEdition
 
-`func (o *Book) HasPublishedDate() bool`
+`func (o *Book) HasEdition() bool`
 
-HasPublishedDate returns a boolean if a field has been set.
+HasEdition returns a boolean if a field has been set.
+
+### GetRating
+
+`func (o *Book) GetRating() int32`
+
+GetRating returns the Rating field if non-nil, zero value otherwise.
+
+### GetRatingOk
+
+`func (o *Book) GetRatingOk() (*int32, bool)`
+
+GetRatingOk returns a tuple with the Rating field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetRating
+
+`func (o *Book) SetRating(v int32)`
+
+SetRating sets Rating field to given value.
+
+### HasRating
+
+`func (o *Book) HasRating() bool`
+
+HasRating returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

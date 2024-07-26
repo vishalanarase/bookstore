@@ -109,12 +109,13 @@ components:
   schemas:
     Book:
       example:
+        year: 0
         author: author
-        price: 0.8008282
         isbn: isbn
+        rating: 1
+        edition: 6
         id: id
         title: title
-        published_date: 2000-01-23
       properties:
         id:
           type: string
@@ -124,12 +125,12 @@ components:
           type: string
         isbn:
           type: string
-        price:
-          format: float
-          type: number
-        published_date:
-          format: date
-          type: string
+        year:
+          type: integer
+        edition:
+          type: integer
+        rating:
+          type: integer
       type: object
     CreateBook:
       example:
