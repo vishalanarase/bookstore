@@ -6,6 +6,7 @@ import (
 	"github.com/vishalanarase/bookstore/client/cli/cmd/list"
 )
 
+// Bookstore root command
 var bookCmd = &cobra.Command{
 	Use:   "book",
 	Short: "Manage bookstore",
@@ -17,6 +18,8 @@ var bookCmd = &cobra.Command{
 }
 
 func init() {
+	// Add create command
 	bookCmd.AddCommand(create.CreateCmd)
+	// Add list command
 	bookCmd.AddCommand(list.ListCmd)
 }
