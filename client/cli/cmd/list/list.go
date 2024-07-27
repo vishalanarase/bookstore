@@ -4,7 +4,9 @@ import (
 	"context"
 	"fmt"
 	"log"
+	"os"
 
+	"github.com/olekukonko/tablewriter"
 	"github.com/spf13/cobra"
 
 	"github.com/vishalanarase/bookstore/openapiclient"
@@ -18,28 +20,35 @@ var ListCmd = &cobra.Command{
 
 	Run: func(cmd *cobra.Command, args []string) {
 		fmt.Println("Listing book")
+
 		// Create a new configuration object
 		config := openapiclient.NewConfiguration()
+		config.UserAgent = "cli"
 		config.Servers[0].URL = "http://localhost:8080/v1"
-		//config.BasePath = "https://api.bookstore.com/v1"
-
 		// Set the API key in the headers
 		//config.AddDefaultHeader("Authorization", "Bearer YOUR_API_KEY")
-
 		// Create a new API client with the configuration
 		client := openapiclient.NewAPIClient(config)
-
-		listRequest := client.BooksAPI.ListBooks(context.Background())
 		// Example: Call an endpoint
-		books, resp, err := client.BooksAPI.ListBooksExecute(listRequest)
+		listRequest := client.BooksAPI.ListBooks(context.Background())
+		books, _, err := client.BooksAPI.ListBooksExecute(listRequest)
 		if err != nil {
 			log.Fatalf("Error calling API: %v", err)
 		}
 
-		fmt.Printf("Response code: %d\n", resp.StatusCode)
+		table := tablewriter.NewWriter(os.Stdout)
+		table.SetHeader([]string{"ID", "Title", "Author", "Isbn", "Year", "Edition", "Rating"})
+		// Set table borders
+		table.SetBorder(true)  // Set the border around the table
+		table.SetRowLine(true) // Set line between rows
+
 		for _, book := range books {
-			fmt.Printf("Book: %s\n", *book.Id)
-			fmt.Printf("Book: %s\n", *book.Title)
+			table.Append([]string{*book.Id, *book.Title, *book.Author, *book.Isbn,
+				fmt.Sprintf("%d", *book.Edition), // Convert int to string
+				fmt.Sprintf("%d", *book.Rating),  // Convert int to string
+			})
 		}
+
+		table.Render() // Send output
 	},
 }
