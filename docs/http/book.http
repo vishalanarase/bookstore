@@ -1,5 +1,6 @@
 
-@url = http://localhost:8080
+@url=http://localhost:8080
+@token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MjIyMzU5OTQsImlhdCI6MTcyMjIzMjM5NCwiaXNzIjoiYm9va3N0b3JlIiwicm9sZSI6WyJhZG1pbiJdLCJzdWIiOiJhZG1pbiJ9.absw2380Fxqwn_8PlJZd7GsClw7TPGdKS4ZMFcrX04U
 ###Create book
 
 POST {{url}}/v1/books HTTP/1.1
@@ -17,6 +18,7 @@ POST {{url}}/v1/books HTTP/1.1
 
 ###List books
 GET {{url}}/v1/books HTTP/1.1
+Authorization: Bearer {{token}}
 
 ###Get book
 GET {{url}}/v1/books/1 HTTP/1.1

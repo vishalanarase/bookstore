@@ -4,12 +4,14 @@ import "gorm.io/gorm"
 
 // Store represents a datastore for interacting with the database
 type Store struct {
-	Book BookInterface
+	Book  BookInterface
+	Login LoginInterface
 }
 
 // NewStore creates a new Store instance
 func NewStore(db *gorm.DB) *Store {
 	return &Store{
-		Book: NewBookStore(db),
+		Book:  NewBookStore(db),
+		Login: NewLoginStore(db),
 	}
 }

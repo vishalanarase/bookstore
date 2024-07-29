@@ -54,6 +54,8 @@ func (app *Application) Start(envConfig configs.GlobalConfig) error {
 	// Metrics
 	app.router.Use(middleware.MetricsMiddleware())
 
+	app.router.Use(middleware.AuthenticationMiddleware)
+
 	// Register the routes
 	routes.AddRoutes(app.router, datastore.NewStore(db))
 

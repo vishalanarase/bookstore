@@ -1,0 +1,5 @@
+
+@url = http://localhost:8080
+
+###
+POST {{url}}/v1/login HTTP/1.1
