@@ -9,6 +9,7 @@ import (
 	"github.com/spf13/cobra"
 	"github.com/vishalanarase/bookstore/client/cli/cmd/book"
 	"github.com/vishalanarase/bookstore/client/cli/cmd/login"
+	"github.com/vishalanarase/bookstore/client/cli/cmd/logout"
 )
 
 var cfgFile string
@@ -34,7 +35,6 @@ func Execute() {
 }
 
 func init() {
-
 	// Flags or options for root command
 	rootCmd.PersistentFlags().StringVarP(&cfgFile, "config", "c", "", "config file (default is $HOME/.cli.yaml)")
 
@@ -42,4 +42,6 @@ func init() {
 	rootCmd.AddCommand(book.BookCmd)
 	// Add login commnad
 	rootCmd.AddCommand(login.LoginCmd)
+	// Add logout command
+	rootCmd.AddCommand(logout.LogoutCmd)
 }
