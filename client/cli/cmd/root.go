@@ -8,6 +8,7 @@ import (
 
 	"github.com/spf13/cobra"
 	"github.com/vishalanarase/bookstore/client/cli/cmd/book"
+	"github.com/vishalanarase/bookstore/client/cli/cmd/login"
 )
 
 var cfgFile string
@@ -39,4 +40,6 @@ func init() {
 
 	// Add subcommands
 	rootCmd.AddCommand(book.BookCmd)
+	// Add login commnad
+	rootCmd.AddCommand(login.LoginCmd)
 }
