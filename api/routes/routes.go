@@ -5,23 +5,29 @@ import (
 	"github.com/vishalanarase/bookstore/api/controllers/book"
 	"github.com/vishalanarase/bookstore/api/controllers/login"
 	"github.com/vishalanarase/bookstore/api/controllers/ping"
+	"github.com/vishalanarase/bookstore/api/middleware"
 	"github.com/vishalanarase/bookstore/internal/datastore"
 )
 
 // AddRoutes will add all the routes to the router
 func AddRoutes(router *gin.Engine, dbm *datastore.Store) {
-	v1Routes := router.Group("/v1")
 	pctrl := ping.NewPingController()
 	bctrl := book.NewBookController(dbm)
 	lctrl := login.NewLoginController(dbm)
 
-	v1Routes.Use()
-	{
-		v1Routes.GET("/ping", pctrl.Ping)
-		v1Routes.GET("/books", bctrl.List)
-		v1Routes.GET("/books/:id", bctrl.Get)
-		v1Routes.POST("/books", bctrl.Create)
+	// Public routes
+	router.GET("/ping", pctrl.Ping)
+	router.POST("/v1/login", lctrl.Login)
+	//router.POST("/logout", logout)
+	router.GET("/v1/books", bctrl.List) // Everyone can view books
 
-		v1Routes.POST("/login", lctrl.Login)
-	}
+	// Admin routes
+	admin := router.Group("/v1/admin")
+	admin.Use(middleware.AuthenticationMiddleware, middleware.AdminMiddleware)
+	admin.POST("/books", bctrl.Create)
+
+	// User routes
+	user := router.Group("/v1/books/:id")
+	user.Use(middleware.AuthenticationMiddleware)
+	//user.POST("/rate", rateBook)
 }

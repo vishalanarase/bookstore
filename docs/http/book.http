@@ -1,16 +1,17 @@
 
 @url=http://localhost:8080
-@token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MjIyMzU5OTQsImlhdCI6MTcyMjIzMjM5NCwiaXNzIjoiYm9va3N0b3JlIiwicm9sZSI6WyJhZG1pbiJdLCJzdWIiOiJhZG1pbiJ9.absw2380Fxqwn_8PlJZd7GsClw7TPGdKS4ZMFcrX04U
+@token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwicm9sZSI6ImFkbWluIiwiZXhwIjoxNzI4MTQ2MjgxfQ.TZzhPnigFnpdN-lZvz8zuuPYPD1VCfq14O3G8LRJ7CQ
 ###Create book
 
-POST {{url}}/v1/books HTTP/1.1
+POST {{url}}/v1/admin/books HTTP/1.1
+Authorization: Bearer {{token}}
 
 {
-    "id": "550e8400-e29b-41d4-a716-446655440010",
-    "title": "Golang",
+    "id": "b63240b9-f98b-4c12-8197-78f10ca7dc26",
+    "title": "Test",
     "author": "J.D. Salinger",
     "publisher": "Oreally",
-    "isbn": "9780316769998",
+    "isbn": "9780316769100",
     "year": 2024,
     "edition": 1,
     "rating": 7
@@ -21,4 +22,5 @@ GET {{url}}/v1/books HTTP/1.1
 Authorization: Bearer {{token}}
 
 ###Get book
-GET {{url}}/v1/books/1 HTTP/1.1
+GET {{url}}/v1/books/550e8400-e29b-41d4-a716-446655440010 HTTP/1.1
+Authorization: Bearer {{token}}

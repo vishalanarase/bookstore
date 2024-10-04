@@ -4,28 +4,37 @@ import (
 	"fmt"
 	"time"
 
+	"github.com/gin-gonic/gin"
 	"github.com/golang-jwt/jwt/v4"
 )
 
 // Add a new global variable for the secret key
 var jwtKey = []byte("TopSecretKey")
 
-func GenerateToken(username string, roles []string) (string, error) {
-	mapClaims := &jwt.MapClaims{
-		"sub":  username,
-		"iss":  "bookstore",
-		"role": roles,
-		"exp":  time.Now().Add(time.Hour).Unix(),
-		"iat":  time.Now().Unix(),
+// JWT Claims
+type Claims struct {
+	Username string `json:"username"`
+	Role     string `json:"role"`
+	jwt.StandardClaims
+}
+
+func GenerateToken(username string, role string) (string, error) {
+	expirationTime := time.Now().Add(24 * time.Hour)
+	claims := &Claims{
+		Username: username,
+		Role:     role,
+		StandardClaims: jwt.StandardClaims{
+			ExpiresAt: expirationTime.Unix(),
+		},
 	}
-	claims := jwt.NewWithClaims(jwt.SigningMethodHS256, mapClaims)
-	return claims.SignedString(jwtKey)
+	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
+	return token.SignedString(jwtKey)
 }
 
 // Function to verify JWT tokens
-func VerifyToken(tokenString string) (*jwt.Token, error) {
-	// Parse the token with the secret key
-	token, err := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
+func VerifyToken(c *gin.Context, tokenString string) (*jwt.Token, error) {
+	claims := &Claims{}
+	token, err := jwt.ParseWithClaims(tokenString, claims, func(token *jwt.Token) (interface{}, error) {
 		return jwtKey, nil
 	})
 
@@ -38,6 +47,10 @@ func VerifyToken(tokenString string) (*jwt.Token, error) {
 	if !token.Valid {
 		return nil, fmt.Errorf("invalid token")
 	}
+
+	// Save username and role in context for later use
+	c.Set("username", claims.Username)
+	c.Set("role", claims.Role)
 
 	// Return the verified token
 	return token, nil

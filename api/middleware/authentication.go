@@ -25,7 +25,7 @@ func AuthenticationMiddleware(c *gin.Context) {
 		}
 
 		// Verify the token
-		_, err := token.VerifyToken(tokenString)
+		_, err := token.VerifyToken(c, tokenString)
 		if err != nil {
 			http.Error(c.Writer, "Unauthorized: Token is not valid", http.StatusUnauthorized)
 			c.Abort()
@@ -33,5 +33,18 @@ func AuthenticationMiddleware(c *gin.Context) {
 		}
 	}
 	// Continue with the next middleware or route handler
+
+	c.Next()
+}
+
+// AdminMiddleware is a middleware for authorizing admins
+func AdminMiddleware(c *gin.Context) {
+	// Check role is set to admin
+	role, exists := c.Get("role")
+	if !exists || role != "admin" {
+		c.JSON(http.StatusForbidden, gin.H{"error": "Admins only"})
+		c.Abort()
+		return
+	}
 	c.Next()
 }

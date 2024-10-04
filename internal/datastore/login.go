@@ -30,7 +30,7 @@ func NewLoginStore(db *gorm.DB) LoginInterface {
 }
 
 func (lb *LoginRepo) Login(ctx *gin.Context) (Login, error) {
-	key, err := token.GenerateToken("admin", []string{"admin"})
+	key, err := token.GenerateToken("admin", "admin")
 	if err != nil {
 		return Login{}, err
 	}
