@@ -1,4 +1,4 @@
-package create
+package book
 
 import (
 	"fmt"
@@ -8,7 +8,7 @@ import (
 
 var file string
 
-var CreateCmd = &cobra.Command{
+var createCmd = &cobra.Command{
 	Use:     "create",
 	Aliases: []string{"new", "add"},
 	Short:   "Create a book",
@@ -20,5 +20,5 @@ var CreateCmd = &cobra.Command{
 }
 
 func init() {
-	CreateCmd.Flags().StringVarP(&file, "file", "f", "", "File to create a book")
+	createCmd.Flags().StringVarP(&file, "file", "f", "", "File to create a book")
 }

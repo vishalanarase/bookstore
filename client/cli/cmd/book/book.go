@@ -1,13 +1,11 @@
-package cmd
+package book
 
 import (
 	"github.com/spf13/cobra"
-	"github.com/vishalanarase/bookstore/client/cli/cmd/create"
-	"github.com/vishalanarase/bookstore/client/cli/cmd/list"
 )
 
 // Bookstore root command
-var bookCmd = &cobra.Command{
+var BookCmd = &cobra.Command{
 	Use:   "book",
 	Short: "Manage bookstore",
 	Long:  "Create, update, delete, and list books",
@@ -19,7 +17,7 @@ var bookCmd = &cobra.Command{
 
 func init() {
 	// Add create command
-	bookCmd.AddCommand(create.CreateCmd)
+	BookCmd.AddCommand(createCmd)
 	// Add list command
-	bookCmd.AddCommand(list.ListCmd)
+	BookCmd.AddCommand(listCmd)
 }

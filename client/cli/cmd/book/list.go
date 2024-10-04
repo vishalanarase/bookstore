@@ -1,4 +1,4 @@
-package list
+package book
 
 import (
 	"context"
@@ -12,7 +12,7 @@ import (
 	"github.com/vishalanarase/bookstore/openapiclient"
 )
 
-var ListCmd = &cobra.Command{
+var listCmd = &cobra.Command{
 	Use:     "list",
 	Aliases: []string{"ls", "all"},
 	Short:   "List a books",

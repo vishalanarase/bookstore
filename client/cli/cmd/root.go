@@ -7,6 +7,7 @@ import (
 	"os"
 
 	"github.com/spf13/cobra"
+	"github.com/vishalanarase/bookstore/client/cli/cmd/book"
 )
 
 var cfgFile string
@@ -37,5 +38,5 @@ func init() {
 	rootCmd.PersistentFlags().StringVarP(&cfgFile, "config", "c", "", "config file (default is $HOME/.cli.yaml)")
 
 	// Add subcommands
-	rootCmd.AddCommand(bookCmd)
+	rootCmd.AddCommand(book.BookCmd)
 }
