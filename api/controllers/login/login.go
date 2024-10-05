@@ -27,12 +27,18 @@ func NewLoginController(dbm *datastore.Store) ILoginController {
 
 // Login
 func (ctrl *LoginController) Login(ctx *gin.Context) {
-	login, err := ctrl.store.Login.Login(ctx)
-	if err != nil {
-		log.WithError(err).Error("Failed to list books")
-		ctx.JSON(http.StatusBadRequest, gin.H{"message": "Error in Listing Books"})
+	var user datastore.User
+	if err := ctx.BindJSON(&user); err != nil {
+		ctx.JSON(http.StatusBadRequest, gin.H{"error": "Invalid input"})
 		return
 	}
 
-	ctx.JSON(http.StatusOK, login.Key)
+	login, err := ctrl.store.Login.Login(ctx, user)
+	if err != nil {
+		log.WithError(err).Error("Failed to login")
+		ctx.JSON(http.StatusBadRequest, gin.H{"message": "Error in login"})
+		return
+	}
+
+	ctx.JSON(http.StatusOK, gin.H{"token": login.Key})
 }

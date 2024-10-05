@@ -1,6 +1,6 @@
 
 @url=http://localhost:8080
-@token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwicm9sZSI6ImFkbWluIiwiZXhwIjoxNzI4MTQ2MjgxfQ.TZzhPnigFnpdN-lZvz8zuuPYPD1VCfq14O3G8LRJ7CQ
+@token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InZpc2hhbEBnbWFpbC5jb20iLCJyb2xlIjoidXNlciIsImlzcyI6ImJvb2tzdG9yZSIsImV4cCI6MTcyODIwMjg1NiwiaWF0IjoxNzI4MTE2NDU2LCJqdGkiOiIzMGI5NjdjOC0zNDA5LTRkZTMtOTViZi0wY2I1MzYzOWYyZTEifQ.nD9Fze3zWV_JenGoDmo0aQ4_mbI_faHrlwlw8Iwwf4k
 ###Create book
 
 POST {{url}}/v1/admin/books HTTP/1.1

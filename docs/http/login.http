@@ -3,3 +3,18 @@
 
 ###
 POST {{url}}/v1/login HTTP/1.1
+Content-Type: application/json
+
+{
+    "username": "admin@bookstore.com",
+    "password": "admin"
+}
+
+###
+POST {{url}}/v1/login HTTP/1.1
+Content-Type: application/json
+
+{
+    "username": "vishal@gmail.com",
+    "password": "vishal"
+}
