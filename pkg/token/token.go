@@ -70,6 +70,5 @@ func BlacklistToken(token string) {
 
 // IsTokenBlacklisted returns true if token is blacklisted
 func IsTokenBlacklisted(token string) bool {
-	fmt.Println("Blacklisting: %v", tokenBlacklist)
 	return tokenBlacklist[token]
 }
