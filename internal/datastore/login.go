@@ -14,6 +14,7 @@ import (
 // LoginInterface represents a Login interface
 type LoginInterface interface {
 	Login(ctx *gin.Context, user User) (Login, error)
+	Logout(ctx *gin.Context, token string) error
 }
 
 // Login represents a Login
@@ -51,4 +52,9 @@ func (lb *LoginRepo) Login(ctx *gin.Context, u User) (Login, error) {
 	}
 
 	return Login{}, errors.NewAPIError(http.StatusUnauthorized, "Invalid username or password")
+}
+
+func (lb *LoginRepo) Logout(ctx *gin.Context, tokenString string) error {
+	token.BlacklistToken(tokenString)
+	return nil
 }

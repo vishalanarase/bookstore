@@ -12,6 +12,9 @@ import (
 // Add a new global variable for the secret key
 var jwtKey = []byte("TopSecretKey")
 
+// tokenBlacklist is a map to store blacklisted tokens
+var tokenBlacklist = make(map[string]bool)
+
 // JWT Claims
 type Claims struct {
 	Username string `json:"username"`
@@ -57,4 +60,16 @@ func VerifyToken(c *gin.Context, tokenString string) (*jwt.Token, error) {
 
 	// Return the verified token
 	return token, nil
+}
+
+// BlacklistToken blacklist token
+func BlacklistToken(token string) {
+	fmt.Println("Blacklisting", token)
+	tokenBlacklist[token] = true
+}
+
+// IsTokenBlacklisted returns true if token is blacklisted
+func IsTokenBlacklisted(token string) bool {
+	fmt.Println("Blacklisting: %v", tokenBlacklist)
+	return tokenBlacklist[token]
 }

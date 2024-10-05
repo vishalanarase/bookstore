@@ -24,6 +24,12 @@ func AuthenticationMiddleware(c *gin.Context) {
 			tokenString = tokenString[len("Bearer "):]
 		}
 
+		if token.IsTokenBlacklisted(tokenString) {
+			http.Error(c.Writer, "Unauthorized: Token is blacklisted", http.StatusUnauthorized)
+			c.Abort()
+			return
+		}
+
 		// Verify the token
 		_, err := token.VerifyToken(c, tokenString)
 		if err != nil {

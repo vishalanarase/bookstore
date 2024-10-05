@@ -18,8 +18,7 @@ func AddRoutes(router *gin.Engine, dbm *datastore.Store) {
 	// Public routes
 	router.GET("/ping", pctrl.Ping)
 	router.POST("/v1/login", lctrl.Login)
-	//router.POST("/logout", logout)
-	router.GET("/v1/books", bctrl.List) // Everyone can view books
+	router.POST("/v1/logout", lctrl.Logout)
 
 	// Admin routes
 	admin := router.Group("/v1/admin")
@@ -27,7 +26,9 @@ func AddRoutes(router *gin.Engine, dbm *datastore.Store) {
 	admin.POST("/books", bctrl.Create)
 
 	// User routes
-	user := router.Group("/v1/books/:id")
+	user := router.Group("/v1")
 	user.Use(middleware.AuthenticationMiddleware)
+	user.GET("books", bctrl.List)    // Everyone can view books
+	user.GET("books/:id", bctrl.Get) // Everyone can view books
 	//user.POST("/rate", rateBook)
 }

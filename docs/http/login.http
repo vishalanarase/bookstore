@@ -1,5 +1,6 @@
 
 @url = http://localhost:8080
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InZpc2hhbEBnbWFpbC5jb20iLCJyb2xlIjoidXNlciIsImlzcyI6ImJvb2tzdG9yZSIsImV4cCI6MTcyODIwMzgxMCwiaWF0IjoxNzI4MTE3NDEwLCJqdGkiOiI2MzFkMmU2OS1iYTc3LTQ5MDEtYjNiNC0xNTlmZjVhNDNkN2MifQ.gB6IJ4Kj44OBRDYD0ruEoFnsf30I1dpgD5QWpt96oyE
 
 ###
 POST {{url}}/v1/login HTTP/1.1
@@ -18,3 +19,8 @@ Content-Type: application/json
     "username": "vishal@gmail.com",
     "password": "vishal"
 }
+
+###
+POST {{url}}/v1/logout HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer {{token}}
