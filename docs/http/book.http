@@ -1,6 +1,6 @@
 
 @url=http://localhost:8080
-@token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InZpc2hhbEBnbWFpbC5jb20iLCJyb2xlIjoidXNlciIsImlzcyI6ImJvb2tzdG9yZSIsImV4cCI6MTcyODI3NzM4MSwiaWF0IjoxNzI4MTkwOTgxLCJqdGkiOiI2OGEzNDljZS0xZjU5LTQxNzMtYmI1OS04MTg2OThlOTQzZTMifQ.ZEDhq_7rLdR9XKufqad4Ksbeh79jiTh-0XOG4Oums5k
+@token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InZpc2hhbEBnbWFpbC5jb20iLCJ1c2VyX2lkIjoiODY5YTljNTEtZWEyMi00ZTg5LTkzY2ItOTkyZDU3M2ZmZDQyIiwicm9sZSI6InVzZXIiLCJpc3MiOiJib29rc3RvcmUiLCJleHAiOjE3MjgyODMzNTcsImlhdCI6MTcyODE5Njk1NywianRpIjoiOTYyMzI1ZmYtNTE1ZC00NjM5LWEzYWEtMTgwYTQwMDlmZGY5In0.DJ9IX5KGumHFiE4LnZVH_BbvuU_brh6nK7XTT5h9lg8
 
 @admin=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluQGJvb2tzdG9yZS5jb20iLCJyb2xlIjoiYWRtaW4iLCJpc3MiOiJib29rc3RvcmUiLCJleHAiOjE3MjgyNzc0MjYsImlhdCI6MTcyODE5MTAyNiwianRpIjoiODQyZTkzODAtMzkwOC00ZjNmLWI2ZGQtMmFkYTkwZjcxYTNhIn0.E8XbsKPW1T1wOatHsOlNaS9z1Ntw5diNo-GCrwasRsQ
 ###Create book
@@ -25,4 +25,22 @@ Authorization: Bearer {{token}}
 
 ###Get book
 GET {{url}}/v1/books/b63240b9-f98b-4c12-8197-78f10ca7dc26 HTTP/1.1
+Authorization: Bearer {{token}}
+
+
+### Rate book
+POST {{url}}/v1/books/rates HTTP/1.1
+Authorization: Bearer {{token}}
+
+{
+    "book_id": "b63240b9-f98b-4c12-8197-78f10ca7dc26",
+    "rating": 8
+}
+
+### View Ratings
+GET {{url}}/v1/books/rates HTTP/1.1
+Authorization: Bearer {{token}}
+
+### View Ratings
+GET {{url}}/v1/books/rates/b63240b9-f98b-4c12-8197-78f10ca7dc26 HTTP/1.1
 Authorization: Bearer {{token}}

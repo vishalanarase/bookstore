@@ -44,7 +44,7 @@ func (lb *LoginRepo) Login(ctx *gin.Context, u User) (Login, *errors.APIError) {
 	}
 
 	if user.Username == u.Username && user.Password == u.Password {
-		key, err := token.GenerateToken(u.Username, user.Role)
+		key, err := token.GenerateToken(user.ID, user.Username, user.Role)
 		if err != nil {
 			log.WithError(err).Error("Unable to generate token")
 			apiErr.Status = http.StatusInternalServerError

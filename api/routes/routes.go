@@ -5,6 +5,7 @@ import (
 	"github.com/vishalanarase/bookstore/api/controllers/book"
 	"github.com/vishalanarase/bookstore/api/controllers/login"
 	"github.com/vishalanarase/bookstore/api/controllers/ping"
+	"github.com/vishalanarase/bookstore/api/controllers/rating"
 	"github.com/vishalanarase/bookstore/api/middleware"
 	"github.com/vishalanarase/bookstore/internal/datastore"
 )
@@ -14,6 +15,7 @@ func AddRoutes(router *gin.Engine, dbm *datastore.Store) {
 	pctrl := ping.NewPingController()
 	bctrl := book.NewBookController(dbm)
 	lctrl := login.NewLoginController(dbm)
+	rctrl := rating.NewRatingController(dbm)
 
 	// Public routes
 	router.GET("/ping", pctrl.Ping)
@@ -28,7 +30,7 @@ func AddRoutes(router *gin.Engine, dbm *datastore.Store) {
 	// User routes
 	user := router.Group("/v1")
 	user.Use(middleware.AuthenticationMiddleware)
-	user.GET("books", bctrl.List)    // Everyone can view books
-	user.GET("books/:id", bctrl.Get) // Everyone can view books
-	//user.POST("/rate", rateBook)
+	user.GET("books", bctrl.List)
+	user.GET("books/:id", bctrl.Get)
+	user.POST("books/rates", rctrl.Create)
 }

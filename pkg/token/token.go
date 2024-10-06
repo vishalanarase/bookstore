@@ -18,13 +18,15 @@ var tokenBlacklist = make(map[string]bool)
 // JWT Claims
 type Claims struct {
 	Username string `json:"username"`
+	UserID   string `json:"user_id"`
 	Role     string `json:"role"`
 	jwt.RegisteredClaims
 }
 
-func GenerateToken(username string, role string) (string, error) {
+func GenerateToken(id, username, role string) (string, error) {
 	claims := &Claims{
 		Username: username,
+		UserID:   id,
 		Role:     role,
 		RegisteredClaims: jwt.RegisteredClaims{
 			ID:        uuid.New().String(),
@@ -57,6 +59,7 @@ func VerifyToken(c *gin.Context, tokenString string) (*jwt.Token, error) {
 	// Save username and role in context for later use
 	c.Set("username", claims.Username)
 	c.Set("role", claims.Role)
+	c.Set("user_id", claims.UserID)
 
 	// Return the verified token
 	return token, nil
