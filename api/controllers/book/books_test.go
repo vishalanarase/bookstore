@@ -40,7 +40,7 @@ func TestCreate(t *testing.T) {
 		"should return 200": {
 			payload: `{"id":"11","title":"Test","rating":4}`,
 			resp: BookResponse{
-				code: http.StatusOK,
+				code: http.StatusCreated,
 				body: datastore.Book{
 					ID:     "11",
 					Title:  "Test",
