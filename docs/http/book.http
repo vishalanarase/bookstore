@@ -1,10 +1,12 @@
 
 @url=http://localhost:8080
-@token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InZpc2hhbEBnbWFpbC5jb20iLCJyb2xlIjoidXNlciIsImlzcyI6ImJvb2tzdG9yZSIsImV4cCI6MTcyODIwMzgxMCwiaWF0IjoxNzI4MTE3NDEwLCJqdGkiOiI2MzFkMmU2OS1iYTc3LTQ5MDEtYjNiNC0xNTlmZjVhNDNkN2MifQ.gB6IJ4Kj44OBRDYD0ruEoFnsf30I1dpgD5QWpt96oyE
+@token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InZpc2hhbEBnbWFpbC5jb20iLCJyb2xlIjoidXNlciIsImlzcyI6ImJvb2tzdG9yZSIsImV4cCI6MTcyODI3NzM4MSwiaWF0IjoxNzI4MTkwOTgxLCJqdGkiOiI2OGEzNDljZS0xZjU5LTQxNzMtYmI1OS04MTg2OThlOTQzZTMifQ.ZEDhq_7rLdR9XKufqad4Ksbeh79jiTh-0XOG4Oums5k
+
+@admin=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluQGJvb2tzdG9yZS5jb20iLCJyb2xlIjoiYWRtaW4iLCJpc3MiOiJib29rc3RvcmUiLCJleHAiOjE3MjgyNzc0MjYsImlhdCI6MTcyODE5MTAyNiwianRpIjoiODQyZTkzODAtMzkwOC00ZjNmLWI2ZGQtMmFkYTkwZjcxYTNhIn0.E8XbsKPW1T1wOatHsOlNaS9z1Ntw5diNo-GCrwasRsQ
 ###Create book
 
 POST {{url}}/v1/admin/books HTTP/1.1
-Authorization: Bearer {{token}}
+Authorization: Bearer {{admin}}
 
 {
     "id": "b63240b9-f98b-4c12-8197-78f10ca7dc26",
@@ -22,5 +24,5 @@ GET {{url}}/v1/books HTTP/1.1
 Authorization: Bearer {{token}}
 
 ###Get book
-GET {{url}}/v1/books/550e8400-e29b-41d4-a716-446655440010 HTTP/1.1
+GET {{url}}/v1/books/b63240b9-f98b-4c12-8197-78f10ca7dc26 HTTP/1.1
 Authorization: Bearer {{token}}
