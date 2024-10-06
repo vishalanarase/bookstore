@@ -73,10 +73,10 @@ func (ctrl *BookController) Create(ctx *gin.Context) {
 		return
 	}
 
-	ctx.JSON(http.StatusOK, book)
+	ctx.JSON(http.StatusCreated, book)
 }
 
 // Delete a book
 func (ctrl *BookController) Delete(ctx *gin.Context) {
-	ctx.JSON(http.StatusOK, nil)
+	ctx.JSON(http.StatusAccepted, nil)
 }
