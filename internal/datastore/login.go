@@ -13,7 +13,7 @@ import (
 
 // LoginInterface represents a Login interface
 type LoginInterface interface {
-	Login(ctx *gin.Context, user User) (Login, error)
+	Login(ctx *gin.Context, user User) (Login, *errors.APIError)
 	Logout(ctx *gin.Context, token string) error
 }
 
@@ -34,8 +34,9 @@ func NewLoginStore(db *gorm.DB) LoginInterface {
 	}
 }
 
-func (lb *LoginRepo) Login(ctx *gin.Context, u User) (Login, error) {
+func (lb *LoginRepo) Login(ctx *gin.Context, u User) (Login, *errors.APIError) {
 	var user User
+	apiErr := &errors.APIError{}
 	result := lb.DB.Where("username = ?", u.Username).First(&user)
 	if result.Error != nil {
 		log.WithError(result.Error).Error("Unable to fect record")
@@ -45,13 +46,16 @@ func (lb *LoginRepo) Login(ctx *gin.Context, u User) (Login, error) {
 	if user.Username == u.Username && user.Password == u.Password {
 		key, err := token.GenerateToken(u.Username, user.Role)
 		if err != nil {
-			return Login{}, err
+			log.WithError(err).Error("Unable to generate token")
+			apiErr.Status = http.StatusInternalServerError
+			apiErr.Message = err.Error()
+			return Login{}, apiErr
 		}
 
 		return Login{Key: key}, nil
 	}
 
-	return Login{}, errors.NewAPIError(http.StatusUnauthorized, "Invalid username or password")
+	return Login{}, errors.NewAPIError(http.StatusBadRequest, "Invalid username or password")
 }
 
 func (lb *LoginRepo) Logout(ctx *gin.Context, tokenString string) error {

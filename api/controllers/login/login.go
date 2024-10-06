@@ -35,10 +35,10 @@ func (ctrl *LoginController) Login(ctx *gin.Context) {
 		return
 	}
 
-	login, err := ctrl.store.Login.Login(ctx, user)
-	if err != nil {
-		log.WithError(err).Error("Failed to login")
-		ctx.JSON(http.StatusBadRequest, gin.H{"message": "Error in login"})
+	login, apiErr := ctrl.store.Login.Login(ctx, user)
+	if apiErr != nil {
+		log.WithError(apiErr).Error("Failed to login")
+		ctx.JSON(apiErr.Status, gin.H{"message": apiErr.Message})
 		return
 	}
 
