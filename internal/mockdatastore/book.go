@@ -41,7 +41,12 @@ func (m *MockBook) Get(ctx *gin.Context, uuid string) (datastore.Book, *errors.A
 // Create creates a new book into the mock store
 func (m *MockBook) Create(ctx *gin.Context, book datastore.Book) (datastore.Book, *errors.APIError) {
 	args := m.Called(ctx, book)
-	return args.Get(0).(datastore.Book), &errors.APIError{Message: args.Error(1).Error()}
+
+	if args.Error(1) != nil {
+		return args.Get(0).(datastore.Book), &errors.APIError{Message: args.Error(1).Error()}
+	}
+
+	return args.Get(0).(datastore.Book), nil
 }
 
 func (m *MockBook) Delete(ctx *gin.Context, uuid string) *errors.APIError {
