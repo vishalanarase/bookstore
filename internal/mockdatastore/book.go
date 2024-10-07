@@ -23,7 +23,11 @@ func NewBookMockStore() datastore.BookInterface {
 // GetDatabase returns the database object or an error
 func (m *MockBook) GetDatabaseObject() (*gorm.DB, *errors.APIError) {
 	args := m.Called()
-	return args.Get(0).(*gorm.DB), &errors.APIError{Message: args.Error(1).Error()}
+	if args.Error(1) != nil {
+		return args.Get(0).(*gorm.DB), &errors.APIError{Message: args.Error(1).Error()}
+	}
+
+	return args.Get(0).(*gorm.DB), nil
 }
 
 // List returns the mock books from the mock store
