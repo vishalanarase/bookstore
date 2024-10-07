@@ -35,7 +35,12 @@ func (m *MockBook) List(ctx *gin.Context) ([]datastore.Book, *errors.APIError) {
 // Get returns a book from the mock strore
 func (m *MockBook) Get(ctx *gin.Context, uuid string) (datastore.Book, *errors.APIError) {
 	args := m.Called(ctx, uuid)
-	return args.Get(0).(datastore.Book), &errors.APIError{Message: args.Error(1).Error()}
+
+	if args.Error(1) != nil {
+		return args.Get(0).(datastore.Book), &errors.APIError{Message: args.Error(1).Error()}
+	}
+
+	return args.Get(0).(datastore.Book), nil
 }
 
 // Create creates a new book into the mock store
