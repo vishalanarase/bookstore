@@ -33,7 +33,12 @@ func (m *MockBook) GetDatabaseObject() (*gorm.DB, *errors.APIError) {
 // List returns the mock books from the mock store
 func (m *MockBook) List(ctx *gin.Context) ([]datastore.Book, *errors.APIError) {
 	args := m.Called(ctx)
-	return args.Get(0).([]datastore.Book), &errors.APIError{Message: args.Error(1).Error()}
+
+	if args.Error(1) != nil {
+		return args.Get(0).([]datastore.Book), &errors.APIError{Message: args.Error(1).Error()}
+	}
+
+	return args.Get(0).([]datastore.Book), nil
 }
 
 // Get returns a book from the mock strore
