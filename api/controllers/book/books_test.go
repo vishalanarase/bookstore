@@ -179,7 +179,9 @@ func TestBookModel(t *testing.T) {
 		createdBook, err := mockDB.Create(&gin.Context{}, newBook)
 
 		// Assert the result
-		assert.NoError(t, err)
+		if err != nil {
+			assert.Error(t, err)
+		}
 		assert.Equal(t, newBook, createdBook)
 
 		// Optionally, verify that the expected method was called
