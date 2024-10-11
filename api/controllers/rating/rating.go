@@ -11,6 +11,7 @@ import (
 // IRatingController is a controller interface for RatingController
 type IRatingController interface {
 	Create(ctx *gin.Context)
+	List(ctx *gin.Context)
 }
 
 // RatingController represents a RatingController structure
@@ -46,4 +47,16 @@ func (ctrl *RatingController) Create(ctx *gin.Context) {
 	}
 
 	ctx.JSON(http.StatusAccepted, gin.H{"message": "Accepted"})
+}
+
+// List all ratings
+func (ctrl *RatingController) List(ctx *gin.Context) {
+	ratings, err := ctrl.store.Rating.List(ctx)
+	if err != nil {
+		log.WithError(err).Error("Failed to list ratings")
+		ctx.JSON(http.StatusInternalServerError, gin.H{"message": "Failed to list ratings"})
+		return
+	}
+
+	ctx.JSON(http.StatusOK, ratings)
 }
