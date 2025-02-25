@@ -13,7 +13,7 @@ import (
 type RatingInterface interface {
 	Create(ctx *gin.Context, rate Rating) *errors.APIError
 	//Get(ctx *gin.Context, rate Rating) *errors.APIError
-	List(ctx *gin.Context, rate Rating) ([]Rating, *errors.APIError)
+	List(ctx *gin.Context) ([]Rating, *errors.APIError)
 }
 
 // RatingRepo represents a Rating
@@ -41,6 +41,6 @@ func (r *RatingRepo) Create(ctx *gin.Context, rate Rating) *errors.APIError {
 	return nil
 }
 
-func (r *RatingRepo) List(ctx *gin.Context, rate Rating) ([]Rating, *errors.APIError) {
+func (r *RatingRepo) List(ctx *gin.Context) ([]Rating, *errors.APIError) {
 	return []Rating{}, &errors.APIError{}
 }
