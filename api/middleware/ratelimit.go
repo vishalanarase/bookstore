@@ -46,22 +46,20 @@ func (i *IPRateLimiter) AddIP(ip string) *rate.Limiter {
 }
 
 // GetLimiter returns the rate limiter for the provided IP address if it exists.
-// Otherwise, it adds the IP address to the map.
+// Otherwise calls AddIP to add IP address to the map
 func (i *IPRateLimiter) GetLimiter(ip string) *rate.Limiter {
 	i.mu.Lock()
-	defer i.mu.Unlock() // Ensure that we unlock at the end of the function
-
-	// Normalize the IP address (strip port if present)
 	if strings.Contains(ip, ":") {
 		ip = strings.Split(ip, ":")[0]
 	}
-
-	// Check if the IP already has a limiter
 	limiter, exists := i.ips[ip]
+
 	if !exists {
-		// If no limiter exists for the IP, create and add it
+		i.mu.Unlock()
 		return i.AddIP(ip)
 	}
+
+	i.mu.Unlock()
 
 	return limiter
 }
