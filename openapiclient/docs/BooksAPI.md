@@ -5,10 +5,10 @@ All URIs are relative to *https://api.bookstore.com/v1*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**AddBook**](BooksAPI.md#AddBook) | **Post** /books | Add a new book
-[**DeleteBook**](BooksAPI.md#DeleteBook) | **Delete** /books/{bookId} | Delete a book by ID
-[**GetBookById**](BooksAPI.md#GetBookById) | **Get** /books/{bookId} | Get a book by ID
+[**DeleteBook**](BooksAPI.md#DeleteBook) | **Delete** /books/{id} | Delete a book by ID
+[**GetBookById**](BooksAPI.md#GetBookById) | **Get** /books/{id} | Get a book by ID
 [**ListBooks**](BooksAPI.md#ListBooks) | **Get** /books | List all books
-[**UpdateBook**](BooksAPI.md#UpdateBook) | **Put** /books/{bookId} | Update a book by ID
+[**UpdateBook**](BooksAPI.md#UpdateBook) | **Put** /books/{id} | Update a book by ID
 
 
 
@@ -78,7 +78,7 @@ No authorization required
 
 ## DeleteBook
 
-> DeleteBook(ctx, bookId).Execute()
+> DeleteBook(ctx, id).Execute()
 
 Delete a book by ID
 
@@ -95,11 +95,11 @@ import (
 )
 
 func main() {
-	bookId := "bookId_example" // string | 
+	id := "id_example" // string | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.BooksAPI.DeleteBook(context.Background(), bookId).Execute()
+	r, err := apiClient.BooksAPI.DeleteBook(context.Background(), id).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `BooksAPI.DeleteBook``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -113,7 +113,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**bookId** | **string** |  | 
+**id** | **string** |  | 
 
 ### Other Parameters
 
@@ -144,7 +144,7 @@ No authorization required
 
 ## GetBookById
 
-> Book GetBookById(ctx, bookId).Execute()
+> Book GetBookById(ctx, id).Execute()
 
 Get a book by ID
 
@@ -161,11 +161,11 @@ import (
 )
 
 func main() {
-	bookId := "bookId_example" // string | 
+	id := "id_example" // string | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.BooksAPI.GetBookById(context.Background(), bookId).Execute()
+	resp, r, err := apiClient.BooksAPI.GetBookById(context.Background(), id).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `BooksAPI.GetBookById``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -181,7 +181,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**bookId** | **string** |  | 
+**id** | **string** |  | 
 
 ### Other Parameters
 
@@ -271,7 +271,7 @@ No authorization required
 
 ## UpdateBook
 
-> Book UpdateBook(ctx, bookId).UpdateBook(updateBook).Execute()
+> Book UpdateBook(ctx, id).UpdateBook(updateBook).Execute()
 
 Update a book by ID
 
@@ -288,12 +288,12 @@ import (
 )
 
 func main() {
-	bookId := "bookId_example" // string | 
+	id := "id_example" // string | 
 	updateBook := *openapiclient.NewUpdateBook() // UpdateBook | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.BooksAPI.UpdateBook(context.Background(), bookId).UpdateBook(updateBook).Execute()
+	resp, r, err := apiClient.BooksAPI.UpdateBook(context.Background(), id).UpdateBook(updateBook).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `BooksAPI.UpdateBook``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -309,7 +309,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**bookId** | **string** |  | 
+**id** | **string** |  | 
 
 ### Other Parameters
 

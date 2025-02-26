@@ -40,13 +40,13 @@ paths:
       summary: Add a new book
       tags:
       - Books
-  /books/{bookId}:
+  /books/{id}:
     delete:
       operationId: deleteBook
       parameters:
       - explode: false
         in: path
-        name: bookId
+        name: id
         required: true
         schema:
           type: string
@@ -62,7 +62,7 @@ paths:
       parameters:
       - explode: false
         in: path
-        name: bookId
+        name: id
         required: true
         schema:
           type: string
@@ -84,7 +84,7 @@ paths:
       parameters:
       - explode: false
         in: path
-        name: bookId
+        name: id
         required: true
         schema:
           type: string
@@ -112,7 +112,6 @@ components:
         year: 0
         author: author
         isbn: isbn
-        rating: 1
         edition: 6
         id: id
         title: title
@@ -128,8 +127,6 @@ components:
         year:
           type: integer
         edition:
-          type: integer
-        rating:
           type: integer
       type: object
     CreateBook:

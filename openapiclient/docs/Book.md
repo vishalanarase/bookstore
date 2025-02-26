@@ -10,7 +10,6 @@ Name | Type | Description | Notes
 **Isbn** | Pointer to **string** |  | [optional] 
 **Year** | Pointer to **int32** |  | [optional] 
 **Edition** | Pointer to **int32** |  | [optional] 
-**Rating** | Pointer to **int32** |  | [optional] 
 
 ## Methods
 
@@ -180,31 +179,6 @@ SetEdition sets Edition field to given value.
 `func (o *Book) HasEdition() bool`
 
 HasEdition returns a boolean if a field has been set.
-
-### GetRating
-
-`func (o *Book) GetRating() int32`
-
-GetRating returns the Rating field if non-nil, zero value otherwise.
-
-### GetRatingOk
-
-`func (o *Book) GetRatingOk() (*int32, bool)`
-
-GetRatingOk returns a tuple with the Rating field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetRating
-
-`func (o *Book) SetRating(v int32)`
-
-SetRating sets Rating field to given value.
-
-### HasRating
-
-`func (o *Book) HasRating() bool`
-
-HasRating returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
