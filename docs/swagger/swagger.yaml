@@ -1,0 +1,150 @@
+openapi: 3.0.0
+info:
+  title: Bookstore API
+  description: API for managing a bookstore.
+  version: 1.0.0
+servers:
+  - url: https://api.bookstore.com/v1
+    description: Production server
+
+paths:
+  /books:
+    get:
+      summary: List all books
+      operationId: listBooks
+      tags:
+        - Books
+      responses:
+        "200":
+          description: A list of books.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Book"
+    post:
+      summary: Add a new book
+      operationId: addBook
+      tags:
+        - Books
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateBook"
+      responses:
+        "201":
+          description: The book was created successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Book"
+  /books/{id}:
+    get:
+      summary: Get a book by ID
+      operationId: getBookById
+      tags:
+        - Books
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: The requested book.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Book"
+        "404":
+          description: Book not found
+    put:
+      summary: Update a book by ID
+      operationId: updateBook
+      tags:
+        - Books
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateBook"
+      responses:
+        "200":
+          description: The book was updated successfully.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Book"
+    delete:
+      summary: Delete a book by ID
+      operationId: deleteBook
+      tags:
+        - Books
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "204":
+          description: The book was deleted successfully.
+
+components:
+  schemas:
+    Book:
+      type: object
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        author:
+          type: string
+        isbn:
+          type: string
+        year:
+          type: integer
+        edition:
+          type: integer
+    CreateBook:
+      type: object
+      properties:
+        title:
+          type: string
+        author:
+          type: string
+        isbn:
+          type: string
+        price:
+          type: number
+          format: float
+        published_date:
+          type: string
+          format: date
+    UpdateBook:
+      type: object
+      properties:
+        title:
+          type: string
+        author:
+          type: string
+        isbn:
+          type: string
+        price:
+          type: number
+          format: float
+        published_date:
+          type: string
+          format: date

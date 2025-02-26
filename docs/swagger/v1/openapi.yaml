@@ -41,14 +41,14 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Book"
-  /books/{bookId}:
+  /books/{id}:
     get:
       summary: Get a book by ID
       operationId: getBookById
       tags:
         - Books
       parameters:
-        - name: bookId
+        - name: id
           in: path
           required: true
           schema:
@@ -68,7 +68,7 @@ paths:
       tags:
         - Books
       parameters:
-        - name: bookId
+        - name: id
           in: path
           required: true
           schema:
@@ -92,7 +92,7 @@ paths:
       tags:
         - Books
       parameters:
-        - name: bookId
+        - name: id
           in: path
           required: true
           schema:
@@ -117,8 +117,6 @@ components:
         year:
           type: integer
         edition:
-          type: integer
-        rating:
           type: integer
     CreateBook:
       type: object
