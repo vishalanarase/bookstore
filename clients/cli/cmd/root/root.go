@@ -1,15 +1,12 @@
-/*
-Copyright © 2024
-*/
-package cmd
+package root
 
 import (
 	"os"
 
 	"github.com/spf13/cobra"
-	"github.com/vishalanarase/bookstore/client/cli/cmd/book"
-	"github.com/vishalanarase/bookstore/client/cli/cmd/login"
-	"github.com/vishalanarase/bookstore/client/cli/cmd/logout"
+	"github.com/vishalanarase/bookstore/clients/cli/cmd/book"
+	"github.com/vishalanarase/bookstore/clients/cli/cmd/login"
+	"github.com/vishalanarase/bookstore/clients/cli/cmd/logout"
 )
 
 var cfgFile string

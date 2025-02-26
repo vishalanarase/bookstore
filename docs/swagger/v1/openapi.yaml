@@ -6,7 +6,11 @@ info:
 servers:
   - url: https://api.bookstore.com/v1
     description: Production server
-
+tags:
+  - name: books
+    description: Operations related to books
+  - name: ratings
+    description: Operations related to ratings
 paths:
   /books:
     get:

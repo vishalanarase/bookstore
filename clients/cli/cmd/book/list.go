@@ -9,7 +9,7 @@ import (
 	"github.com/olekukonko/tablewriter"
 	"github.com/spf13/cobra"
 
-	"github.com/vishalanarase/bookstore/openapiclient"
+	"github.com/vishalanarase/bookstore/clients/openapi"
 )
 
 var listCmd = &cobra.Command{
@@ -22,13 +22,13 @@ var listCmd = &cobra.Command{
 		fmt.Println("Listing book")
 
 		// Create a new configuration object
-		config := openapiclient.NewConfiguration()
+		config := openapi.NewConfiguration()
 		config.UserAgent = "cli"
 		config.Servers[0].URL = "http://localhost:8080/v1"
 		// Set the API key in the headers
 		//config.AddDefaultHeader("Authorization", "Bearer YOUR_API_KEY")
 		// Create a new API client with the configuration
-		client := openapiclient.NewAPIClient(config)
+		client := openapi.NewAPIClient(config)
 		// Example: Call an endpoint
 		listRequest := client.BooksAPI.ListBooks(context.Background())
 		books, _, err := client.BooksAPI.ListBooksExecute(listRequest)
@@ -45,7 +45,6 @@ var listCmd = &cobra.Command{
 		for _, book := range books {
 			table.Append([]string{*book.Id, *book.Title, *book.Author, *book.Isbn,
 				fmt.Sprintf("%d", *book.Edition), // Convert int to string
-				fmt.Sprintf("%d", *book.Rating),  // Convert int to string
 			})
 		}
 

@@ -27,10 +27,12 @@ run:
 	go run main.go
 
 cli:
-	go build -o bin/cli client/cli/main.go
+	cd $(PWD)/clients/cli/cmd && \
+	go build -o cli main.go && \
+	mv cli ../../../bin/cli
 	
 openapiclien:
-	openapi-generator generate -i docs/swagger/v1/openapi.yaml -g go -o ./openapiclient
+	openapi-generator generate -i docs/swagger/v1/openapi.yaml -g go -o ./clients/openapi --additional-properties=moduleName=github.com/vishalanarase/bookstore/openapiclient 
 
 test:
 	go test -v ./...
