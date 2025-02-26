@@ -26,7 +26,9 @@ var listCmd = &cobra.Command{
 		config.UserAgent = "cli"
 		config.Servers[0].URL = "http://localhost:8080/v1"
 		// Set the API key in the headers
-		//config.AddDefaultHeader("Authorization", "Bearer YOUR_API_KEY")
+		token := os.Getenv("TOKEN")
+		config.AddDefaultHeader("Authorization", "Bearer "+token)
+		// config.AddDefaultHeader("Authorization", "Bearer API_KEY
 		// Create a new API client with the configuration
 		client := openapi.NewAPIClient(config)
 		// Example: Call an endpoint
@@ -37,13 +39,14 @@ var listCmd = &cobra.Command{
 		}
 
 		table := tablewriter.NewWriter(os.Stdout)
-		table.SetHeader([]string{"ID", "Title", "Author", "Isbn", "Year", "Edition", "Rating"})
+		table.SetHeader([]string{"ID", "Title", "Author", "Isbn", "Year", "Edition"})
 		// Set table borders
 		table.SetBorder(true)  // Set the border around the table
 		table.SetRowLine(true) // Set line between rows
 
 		for _, book := range books {
 			table.Append([]string{*book.Id, *book.Title, *book.Author, *book.Isbn,
+				fmt.Sprintf("%d", *book.Year),    // Convert int to string
 				fmt.Sprintf("%d", *book.Edition), // Convert int to string
 			})
 		}
