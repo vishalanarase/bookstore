@@ -34,3 +34,6 @@ openapiclien:
 
 test:
 	go test -v ./...
+
+docker:
+	docker build -t bookstore-api -f build/api/Dockerfile .

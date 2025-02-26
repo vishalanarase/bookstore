@@ -2,8 +2,6 @@ module github.com/vishalanarase/bookstore
 
 go 1.21
 
-toolchain go1.21.10
-
 require (
 	github.com/gin-gonic/gin v1.8.1
 	github.com/go-testfixtures/testfixtures/v3 v3.6.1
