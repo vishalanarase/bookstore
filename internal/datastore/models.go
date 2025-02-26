@@ -11,7 +11,6 @@ type Book struct {
 	ISBN      string     `json:"isbn"`
 	Year      int        `json:"year"`
 	Edition   int        `json:"edition,omitempty"` // omitempty for optional fields
-	Rating    int        `json:"rating"`
 	CreatedAt time.Time  `json:"created_at"`
 	UpdatedAt time.Time  `json:"updated_at"`
 	DeletedAt *time.Time `json:"deleted_at,omitempty"` // omitempty for optional fields

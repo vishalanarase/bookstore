@@ -65,7 +65,6 @@ func TestBookGet(t *testing.T) {
 		ISBN:      "9780316769488",
 		Year:      1951,
 		Edition:   1,
-		Rating:    7,
 	}
 
 	book, err := store.Book.Get(&gin.Context{}, "550e8400-e29b-41d4-a716-446655440003")
@@ -79,5 +78,4 @@ func TestBookGet(t *testing.T) {
 	g.Expect(expected.ISBN).To(Equal(book.ISBN))
 	g.Expect(expected.Year).To(Equal(book.Year))
 	g.Expect(expected.Edition).To(Equal(book.Edition))
-	g.Expect(expected.Rating).To(Equal(book.Rating))
 }
