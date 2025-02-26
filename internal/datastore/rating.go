@@ -12,8 +12,8 @@ import (
 // RatingInterface represents a Rating interface
 type RatingInterface interface {
 	Create(ctx *gin.Context, rate Rating) *errors.APIError
-	//Get(ctx *gin.Context, rate Rating) *errors.APIError
 	List(ctx *gin.Context) ([]Rating, *errors.APIError)
+	Get(ctx *gin.Context, uuid string) (Rating, *errors.APIError)
 }
 
 // RatingRepo represents a Rating
@@ -60,4 +60,17 @@ func (r *RatingRepo) List(ctx *gin.Context) ([]Rating, *errors.APIError) {
 	}
 
 	return ratings, nil
+}
+
+// Get a rating
+func (r *RatingRepo) Get(ctx *gin.Context, uuid string) (Rating, *errors.APIError) {
+	rating := Rating{}
+	result := r.DB.Where("id = ?", uuid).First(&rating)
+	err := &errors.APIError{}
+	if result.Error != nil {
+		err.Status = http.StatusInternalServerError
+		err.Message = result.Error.Error()
+		return rating, err
+	}
+	return rating, nil
 }
