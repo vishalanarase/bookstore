@@ -25,8 +25,9 @@ type User struct {
 }
 
 type Rating struct {
-	ID     string `json:"id"`
-	BookID string `json:"book_id"`
-	UserID string `json:"user_id"`
-	Rating int    `json:"rating"`
+	ID        string    `json:"id"`
+	BookID    string    `json:"book_id"`
+	UserID    string    `json:"user_id"`
+	Rating    int       `json:"rating"`
+	CreatedAt time.Time `json:"created_at"`
 }

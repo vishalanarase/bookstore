@@ -23,7 +23,7 @@ GET {{url}}/v1/books HTTP/1.1
 Authorization: Bearer {{token}}
 
 ###Get book
-GET {{url}}/v1/books/1a2b3c4d-5e6f-7g8h-9i0j-1k2l3m4n5o6p HTTP/1.1
+GET {{url}}/v1/books/b63240b9-f98b-4c12-8197-78f10ca7dc26 HTTP/1.1
 Authorization: Bearer {{token}}
 
 
@@ -32,8 +32,8 @@ POST {{url}}/v1/books/rates HTTP/1.1
 Authorization: Bearer {{token}}
 
 {
-    "book_id": "1a2b3c4d-5e6f-7g8h-9i0j-1k2l3m4n5o6p",
-    "rating": 8
+    "book_id": "b63240b9-f98b-4c12-8197-78f10ca7dc26",
+    "rating": 10
 }
 
 ### View Ratings
@@ -41,5 +41,5 @@ GET {{url}}/v1/books/rates HTTP/1.1
 Authorization: Bearer {{token}}
 
 ### View Ratings
-GET {{url}}/v1/books/rates/1a2b3c4d-5e6f-7g8h-9i0j-1k2l3m4n5o6p HTTP/1.1
+GET {{url}}/v1/books/rates/36a7074c-92ef-4b4c-8512-02c9a2314028 HTTP/1.1
 Authorization: Bearer {{token}}

@@ -12,6 +12,7 @@ import (
 type IRatingController interface {
 	Create(ctx *gin.Context)
 	List(ctx *gin.Context)
+	//Get(ctx *gin.Context)
 }
 
 // RatingController represents a RatingController structure
@@ -60,3 +61,15 @@ func (ctrl *RatingController) List(ctx *gin.Context) {
 
 	ctx.JSON(http.StatusOK, ratings)
 }
+
+// // Get a rating
+// func (ctrl *RatingController) Get(ctx *gin.Context) {
+// 	id := ctx.Param("id")
+// 	rating, err := ctrl.store.Rating.Get(ctx, id)
+// 	if err != nil {
+// 		log.WithError(err).Error("Failed to get rating")
+// 		ctx.JSON(http.StatusInternalServerError, gin.H{"message": "Failed to get rating"})
+// 		return
+// 	}
+// 	ctx.JSON(http.StatusOK, rating)
+// }

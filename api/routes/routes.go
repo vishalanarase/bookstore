@@ -33,4 +33,6 @@ func AddRoutes(router *gin.Engine, dbm *datastore.Store) {
 	user.GET("books", bctrl.List)
 	user.GET("books/:id", bctrl.Get)
 	user.POST("books/rates", rctrl.Create)
+	user.GET("books/rates", rctrl.List)
+	// user.GET("books/rates/:id", rctrl.Get)
 }

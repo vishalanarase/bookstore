@@ -42,5 +42,22 @@ func (r *RatingRepo) Create(ctx *gin.Context, rate Rating) *errors.APIError {
 }
 
 func (r *RatingRepo) List(ctx *gin.Context) ([]Rating, *errors.APIError) {
-	return []Rating{}, &errors.APIError{}
+	ratings := []Rating{}
+	userID, ok := ctx.Get("user_id")
+	if !ok {
+		return ratings, &errors.APIError{
+			Status:  http.StatusUnauthorized,
+			Message: "Unauthorized",
+		}
+	}
+
+	result := r.DB.Where("user_id = ?", userID).Find(&ratings)
+	err := &errors.APIError{}
+	if result.Error != nil {
+		err.Status = http.StatusInternalServerError
+		err.Message = result.Error.Error()
+		return ratings, err
+	}
+
+	return ratings, nil
 }
