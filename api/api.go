@@ -10,6 +10,7 @@ import (
 	"github.com/vishalanarase/bookstore/pkg/monitoring"
 )
 
+// Application is the main application struct
 type Application struct {
 	router *gin.Engine
 }

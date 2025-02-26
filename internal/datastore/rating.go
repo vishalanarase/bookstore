@@ -28,6 +28,7 @@ func NewRatingStore(db *gorm.DB) RatingInterface {
 	}
 }
 
+// Create creates a new Rating
 func (r *RatingRepo) Create(ctx *gin.Context, rate Rating) *errors.APIError {
 	rate.ID = uuid.New().String()
 	result := r.DB.Create(&rate)
@@ -41,6 +42,7 @@ func (r *RatingRepo) Create(ctx *gin.Context, rate Rating) *errors.APIError {
 	return nil
 }
 
+// List lists all Ratings
 func (r *RatingRepo) List(ctx *gin.Context) ([]Rating, *errors.APIError) {
 	ratings := []Rating{}
 	userID, ok := ctx.Get("user_id")

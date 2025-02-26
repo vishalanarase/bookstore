@@ -16,6 +16,7 @@ type Book struct {
 	DeletedAt *time.Time `json:"deleted_at,omitempty"` // omitempty for optional fields
 }
 
+// User represents a User
 type User struct {
 	ID       string `json:"id"`
 	Username string `json:"username"`
@@ -24,6 +25,7 @@ type User struct {
 	Role     string `json:"role"` // "admin" or "user"
 }
 
+// Rating represents a Rating
 type Rating struct {
 	ID        string    `json:"id"`
 	BookID    string    `json:"book_id"`

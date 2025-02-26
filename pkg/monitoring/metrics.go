@@ -8,6 +8,7 @@ import (
 )
 
 var (
+	// RequestCounter is a counter for HTTP requests
 	RequestCounter = prometheus.NewCounterVec(
 		prometheus.CounterOpts{
 			Name: "http_requests_total",
@@ -15,6 +16,8 @@ var (
 		},
 		[]string{"path", "method"},
 	)
+
+	// RequestDuration is a histogram for HTTP request durations
 	RequestDuration = prometheus.NewHistogramVec(
 		prometheus.HistogramOpts{
 			Name: "http_request_duration_seconds",
@@ -24,11 +27,13 @@ var (
 	)
 )
 
+// InitMetrics initializes the metrics
 func InitMetrics() {
 	prometheus.MustRegister(RequestCounter)
 	prometheus.MustRegister(RequestDuration)
 }
 
+// StartMetricsServer starts the metrics server
 func StartMetricsServer() {
 	http.Handle("/metrics", promhttp.Handler())
 	go http.ListenAndServe(":2112", nil)

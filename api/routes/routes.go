@@ -12,6 +12,7 @@ import (
 
 // AddRoutes will add all the routes to the router
 func AddRoutes(router *gin.Engine, dbm *datastore.Store) {
+	// Initialize controllers
 	pctrl := ping.NewPingController()
 	bctrl := book.NewBookController(dbm)
 	lctrl := login.NewLoginController(dbm)

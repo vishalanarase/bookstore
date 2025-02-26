@@ -34,6 +34,7 @@ func NewLoginStore(db *gorm.DB) LoginInterface {
 	}
 }
 
+// Login logs in a user
 func (lb *LoginRepo) Login(ctx *gin.Context, u User) (Login, *errors.APIError) {
 	var user User
 	apiErr := &errors.APIError{}
@@ -58,6 +59,7 @@ func (lb *LoginRepo) Login(ctx *gin.Context, u User) (Login, *errors.APIError) {
 	return Login{}, errors.NewAPIError(http.StatusBadRequest, "Invalid username or password")
 }
 
+// Logout logs out a user
 func (lb *LoginRepo) Logout(ctx *gin.Context, tokenString string) error {
 	token.BlacklistToken(tokenString)
 	return nil
