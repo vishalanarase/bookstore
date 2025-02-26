@@ -31,8 +31,8 @@ cli:
 	go build -o cli main.go && \
 	mv cli ../../../bin/cli
 	
-openapiclien:
-	openapi-generator generate -i docs/swagger/v1/openapi.yaml -g go -o ./clients/openapi --additional-properties=moduleName=github.com/vishalanarase/bookstore/openapiclient 
+openapiclient:
+	openapi-generator generate -i docs/swagger/v1/openapi.yaml -g go -o ./clients/openapi --additional-properties=moduleName=github.com/vishalanarase/bookstore/openapi
 
 test:
 	go test -v ./...
