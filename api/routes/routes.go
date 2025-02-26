@@ -18,7 +18,7 @@ func AddRoutes(router *gin.Engine, dbm *datastore.Store) {
 	rctrl := rating.NewRatingController(dbm)
 
 	// Public routes
-	router.GET("/ping", pctrl.Ping)
+	router.GET("/v1/ping", pctrl.Ping)
 	router.POST("/v1/login", lctrl.Login)
 	router.POST("/v1/logout", lctrl.Logout)
 

@@ -60,7 +60,6 @@ func (i *IPRateLimiter) GetLimiter(ip string) *rate.Limiter {
 	}
 
 	i.mu.Unlock()
-
 	return limiter
 }
 
