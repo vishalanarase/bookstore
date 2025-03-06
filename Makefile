@@ -39,3 +39,40 @@ test:
 
 docker:
 	docker build -t bookstore-api -f build/api/Dockerfile .
+
+
+## Kustomize build
+kustiomizebuild: kustiomizebuildstaging kustiomizebuildproduction kustiomizebuilddev
+
+kustiomizebuilddev:
+	kustomize build deploy/overlays/dev > config/dev/dev.yaml
+
+kustiomizebuildstaging:
+	kustomize build deploy/overlays/staging > config/staging/staging.yaml
+
+kustiomizebuildproduction:
+	kustomize build deploy/overlays/production > config/production/production.yaml
+
+## Kustomize apply
+kustomizeapply: kustomizeapplydev kustomizeapplystaging kustomizeapplyproduction
+
+kustomizeapplydev:
+	kustomize build deploy/overlays/dev/ | kubectl apply -f -
+
+kustomizeapplystaging:
+	kustomize build deploy/overlays/staging/ | kubectl apply -f -
+
+kustomizeapplyproduction:
+	kustomize build deploy/overlays/production/ | kubectl apply -f -
+
+## Kustomize delete
+kustomizedelete: kustomizedeletedev kustomizedeletestaging kustomizedeleteproduction
+
+kustomizedeletedev:
+	kustomize build deploy/overlays/dev/ | kubectl delete -f -
+
+kustomizedeletestaging:
+	kustomize build deploy/overlays/staging/ | kubectl delete -f -
+
+kustomizedeleteproduction:
+	kustomize build deploy/overlays/production/ | kubectl delete -f -
