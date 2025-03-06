@@ -1,0 +1,41 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: web-server
+    env: staging
+  name: nginx-service
+  namespace: staging
+spec:
+  ports:
+    - port: 80
+      protocol: TCP
+      targetPort: 80
+  selector:
+    app: web-server
+    env: staging
+  type: NodePort
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: web-server
+    env: staging
+  name: nginx-deployment
+  namespace: staging
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: web-server
+      env: staging
+  template:
+    metadata:
+      labels:
+        app: web-server
+        env: staging
+    spec:
+      containers:
+        - image: nginx
+          name: nginx

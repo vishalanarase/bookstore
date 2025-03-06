@@ -1,0 +1,41 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: web-server
+    env: production
+  name: nginx-service
+  namespace: production
+spec:
+  ports:
+    - port: 80
+      protocol: TCP
+      targetPort: 80
+  selector:
+    app: web-server
+    env: production
+  type: NodePort
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: web-server
+    env: production
+  name: nginx-deployment
+  namespace: production
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: web-server
+      env: production
+  template:
+    metadata:
+      labels:
+        app: web-server
+        env: production
+    spec:
+      containers:
+        - image: nginx
+          name: nginx
