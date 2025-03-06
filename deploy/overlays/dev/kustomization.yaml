@@ -1,0 +1,10 @@
+bases:
+  - ../../base
+
+patchesStrategicMerge:
+  - patch.yaml
+
+commonLabels:
+  env: dev
+
+namespace: dev
