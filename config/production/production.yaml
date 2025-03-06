@@ -4,13 +4,13 @@ metadata:
   labels:
     app: web-server
     env: production
-  name: nginx-service
+  name: bookstore-service
   namespace: production
 spec:
   ports:
-    - port: 80
-      protocol: TCP
-      targetPort: 80
+  - port: 80
+    protocol: TCP
+    targetPort: 80
   selector:
     app: web-server
     env: production
@@ -22,7 +22,7 @@ metadata:
   labels:
     app: web-server
     env: production
-  name: nginx-deployment
+  name: bookstore
   namespace: production
 spec:
   replicas: 3
@@ -37,5 +37,5 @@ spec:
         env: production
     spec:
       containers:
-        - image: nginx
-          name: nginx
+      - image: docker.io/vishalanarase/bookstore:latest
+        name: application

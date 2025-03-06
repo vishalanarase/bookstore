@@ -8,3 +8,8 @@ commonLabels:
   env: staging
 
 namespace: staging
+
+images:
+  - name: bookstore
+    newName: docker.io/vishalanarase/bookstore
+    newTag: latest

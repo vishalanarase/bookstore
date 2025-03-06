@@ -8,3 +8,8 @@ commonLabels:
   env: dev
 
 namespace: dev
+
+images:
+  - name: bookstore
+    newName: docker.io/vishalanarase/bookstore
+    newTag: latest
