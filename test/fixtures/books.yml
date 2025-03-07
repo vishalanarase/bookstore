@@ -13,7 +13,6 @@
   publisher: "Secker & Warburg"
   isbn: "9780451524935"
   year: 1949
-  rating: 10
   created_at: RAW=NOW()
 
 - id: "550e8400-e29b-41d4-a716-446655440002"
@@ -22,7 +21,6 @@
   publisher: "Charles Scribner's Sons"
   isbn: "9780743273565"
   year: 1925
-  rating: 8
   created_at: RAW=NOW()
 
 - id: "550e8400-e29b-41d4-a716-446655440003"
