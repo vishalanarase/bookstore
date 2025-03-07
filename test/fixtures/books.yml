@@ -5,7 +5,6 @@
   isbn: "9780060935467"
   year: 1960
   edition: 1
-  rating: 9
   created_at: RAW=NOW()
 
 - id: "550e8400-e29b-41d4-a716-446655440001"
@@ -14,7 +13,6 @@
   publisher: "Secker & Warburg"
   isbn: "9780451524935"
   year: 1949
-  edition: 1
   rating: 10
   created_at: RAW=NOW()
 
@@ -24,7 +22,6 @@
   publisher: "Charles Scribner's Sons"
   isbn: "9780743273565"
   year: 1925
-  edition: 1
   rating: 8
   created_at: RAW=NOW()
 
@@ -35,7 +32,6 @@
   isbn: "9780316769488"
   year: 1951
   edition: 1
-  rating: 7
   created_at: RAW=NOW()
 
 - id: "550e8400-e29b-41d4-a716-446655440004"
@@ -45,5 +41,4 @@
   isbn: "9781503290563"
   year: 1813
   edition: 1
-  rating: 9
   created_at: RAW=NOW()
