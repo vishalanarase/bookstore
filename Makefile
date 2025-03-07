@@ -27,10 +27,10 @@ run:
 	go run main.go
 
 cli:
-	cd $(PWD)/clients/cli/cmd && \
-	go build -o cli main.go && \
-	mv cli ../../../bin/cli
-	
+	cd $(PWD)/clients/cli/cmd/bookctl && \
+	go build -o bookctl main.go && \
+	mv bookctl $(PWD)/bin
+
 openapiclient:
 	openapi-generator generate -i docs/swagger/v1/openapi.yaml -g go -o ./clients/openapi --additional-properties=moduleName=github.com/vishalanarase/bookstore/openapi
 
